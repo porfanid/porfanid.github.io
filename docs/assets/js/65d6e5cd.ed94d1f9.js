@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkquest_match=self.webpackChunkquest_match||[]).push([[2183],{6748:e=>{e.exports=JSON.parse('{"permalink":"/QuestMatch/blog/tags/facebook","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

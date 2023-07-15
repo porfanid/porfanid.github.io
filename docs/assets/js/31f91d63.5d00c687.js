@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkquest_match=self.webpackChunkquest_match||[]).push([[1522],{383:s=>{s.exports=JSON.parse('{"label":"docusaurus","permalink":"/QuestMatch/blog/tags/docusaurus","allTagsPath":"/QuestMatch/blog/tags","count":4}')}}]);
