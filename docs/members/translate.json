@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "viber-42ea3",
+  "private_key_id": "043e32fc2d601316bb30f8c1fc6c47f5ab413190",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC1J1mnNUdbYens\nEjJHkO1fr/AoHfyn2qLbVivmVi/EDLaKwpG9KjYNfc9Fa1VtL6Q6xSfgaosjfoau\nwxFXrcE3ODhAZ3MGSz19NWwPtQi4tk9keY6kiF7bkb++JNgjJnlPr5dsThWC1p0c\npL52gErrSLUXuLBIIoGUJEcAJJ1s6pR5HZABcsbrukPaku8KzOTUQRnEnTayQWmC\n0pXxhCRjyh4z4F5gZmCEZk7U66JoNRYkzLKh4cD/H9hnyExLRoY+jYsoLcnafdxz\nPlo84RkH9s3qnIvdNyvutAmlDM3St53ZRduDFCu8AYBglvcmWKkcRGUsXArm9KiH\n7XRmwzYpAgMBAAECggEADj4icwkMq9yjkvyjQ16GVehJTijSvTJtbNKg76KFwuOU\n/o0+/svGJYK8vHfXPEHApyDqel8mGAunSdpAZM+zye77oo9U9dZjO+hABMQhBBTM\nDS7uzh+CsGoMf0X6UFktXzHZCpo2YBZrkohJXpvGSCrBQjTdIe7EmAHPgJgLCzhh\nlQcVEAOtkDIE50XUnBafItzh1feiKGPt6OLNLgLNf3EJPnHiqVMfvFw7LkSEnUof\nyPOHCvQwhbWQF6TZgR6/BPt48xsQkJSECaJRFzGkj5fsolrObPrZ+UMshmq4dPfl\nsDXPnF98njW7Y6MBAjxZJF5LjnmWEd0pNrj0ZaNpuQKBgQDwHIYtp8Cbf7frE/uo\nqjIIG8rDVBAEI/3wXaxuTQ7Jw1r+oHxB5fiZDQ03zXGR+goZMfCsH0CLWXiXrR0B\nkgQYh80/Yd3aPaAVHAzthftJNPWruC5HFtzJl7YPl3PoXVSD9pniVdI1Sx2o7a9z\ndw4Qk2KnBiIEi8788eOtc2Pz5wKBgQDBJBXW6yGL+pZIBKAGY8GvxDg7eCE2qWLb\npIA+UuE5Qr0O+Wq/Nnke1aXju0ctlldiagiTJ9BvN9mCQDQP1ZD8rpQl0jxHI4UU\nktx/OIivVhw/y1EMpMUnvcdm+oX5Ln0JQLrjG79yIjU1i/VLUNOFH2qKV2Oh0y+4\nC7ZaetFDbwKBgQCEUBOYgQJgLecZgW+CKBdd5IK9VEtnHLZIiDYGqivl/uLbwW/3\nmFR/cnPANlPJDzIVZDGth6M3ptwPKPP884uSQPNXZASuyJq4RzbQhK5OTwK518qY\nnf6YkCNhQCI8/4EdHvz5fjVR7MyxVBkE1axIcg9A3t5MBwbO2DSQVi/ULQKBgCSW\ncGixTD6XLubfsWzkcumYE0r4u9n+BpMzO3QTAUV2phfzGcy1RgaYVH+ql5ZEN7OW\nAJ/X1/1pqBOrk/E39OpZLAlqJS8YxHocRBb5n7MPbfSL0IPDpvGbWu3gIYcNznP1\nRjIFrKOzZT8Kj2JAIoHCbM1eNqqONij4VwgW4hOTAoGBAI04io6IfnBYFZeC0nq/\n0g3IHcONzD7/S8M/irYqc5N6lo/d07aUZZUbqcLjoxKR45Go+fNHOHoHkcs2/9EX\nSUuzDGRYPRM+MTcMS4liI7Ceva4y0kTOMQHU/YMtVwSIqqHccszuUTnE21+CV43O\n1W6KHKJOisZaJ3rtUBx2kt2k\n-----END PRIVATE KEY-----\n",
+  "client_email": "subtitles-api@viber-42ea3.iam.gserviceaccount.com",
+  "client_id": "110389884528500949276",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/subtitles-api%40viber-42ea3.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
