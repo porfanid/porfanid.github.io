@@ -1,6 +1,7 @@
 {
   "hosting": [
     {
+      "site": "pavlos-quantum-loop",
       "public": "docs",
       "ignore": [
         "firebase.json",
