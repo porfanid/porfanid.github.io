@@ -38,22 +38,22 @@ function App() {
                     </div>
                     <ul className="w3-ul w3-hoverable w3-white">
                         <li className="w3-padding-16">
-                            <img src="/w3images/workshop.jpg" alt="Image" className="w3-left w3-margin-right half-size"/>
+                            <img src="/w3images/workshop.jpg" alt="Workshop" className="w3-left w3-margin-right half-size"/>
                             <span className="w3-large">Lorem</span><br/>
                             <span>Sed mattis nunc</span>
                         </li>
                         <li className="w3-padding-16">
-                            <img src="/w3images/gondol.jpg" alt="Image" className="w3-left w3-margin-right half-size"/>
+                            <img src="/w3images/gondol.jpg" alt="Gondol" className="w3-left w3-margin-right half-size"/>
                             <span className="w3-large">Ipsum</span><br/>
                             <span>Praes tinci sed</span>
                         </li>
                         <li className="w3-padding-16">
-                            <img src="/w3images/skies.jpg" alt="Image" className="w3-left w3-margin-right half-size"/>
+                            <img src="/w3images/skies.jpg" alt="Skies" className="w3-left w3-margin-right half-size"/>
                             <span className="w3-large">Dorum</span><br/>
                             <span>Ultricies congue</span>
                         </li>
                         <li className="w3-padding-16 w3-hide-medium w3-hide-small">
-                            <img src="/w3images/rock.jpg" alt="Image" className="w3-left w3-margin-right half-size"/>
+                            <img src="/w3images/rock.jpg" alt="Rock" className="w3-left w3-margin-right half-size"/>
                             <span className="w3-large">Mingsum</span><br/>
                             <span>Lorem ipsum dipsum</span>
                         </li>
