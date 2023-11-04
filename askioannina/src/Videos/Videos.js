@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SingleVideoComponent from "./SingleVideoComponent";
 import youtube_api from "../API/youtube";
+import Navigation from "../Router/Navigation";
 
 
 function Videos() {
@@ -21,15 +22,14 @@ function Videos() {
 
     return (
         <>
+            <Navigation/>
                 {videos.map((video) => {
                     return (
-                        <>
-                        <li key={video.id.videoId}>
-                            <img src={video.snippet.thumbnails.default.url} alt={video.snippet.title} />
-                            <p>{video.snippet.title}</p>
-                        </li>
-                        <SingleVideoComponent videoId = {video.id.videoId} date={video.snippet.publishedAt.split("T")[0]} link={video.id.videoId} image={video.snippet.thumbnails.high.url} title={video.snippet.title}  fullDescription={video.snippet.description} />
-                        </>
+
+                        <div className="w3-col l4">
+                            <SingleVideoComponent date={video.snippet.publishedAt.split("T")[0]} link={video.id.videoId} image={video.snippet.thumbnails.high.url} title={video.snippet.title}  fullDescription={video.snippet.description} />
+                        </div>
+
                 )})}
         </>
     );
