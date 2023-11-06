@@ -39,11 +39,11 @@ function App() {
                 </header>
 
                 <div className={"w3-row"} style={{height: "100%"}}>
-                    <div className="w3-col l8 s12 justify-content-center w3-card" >
+                    <div className="w3-col l9 s12 justify-content-center w3-card" >
                         <RouterProvider router={router} />
                     </div>
 
-                    <div className="w3-col l4">
+                    <div className="w3-col l3">
                         <SideBar/>
                         <hr/>
                         <div className="w3-card w3-margin">
