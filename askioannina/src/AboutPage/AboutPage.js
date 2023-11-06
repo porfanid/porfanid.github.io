@@ -1,7 +1,7 @@
 import Navigation from "../Router/Navigation";
 
-function HomePage(){
-    return (
+function AboutPage() {
+    return(
         <>
             <Navigation/>
             <div className="w3-card w3-margin w3-margin-top">
@@ -14,4 +14,4 @@ function HomePage(){
     );
 }
 
-export default HomePage
+export default AboutPage;

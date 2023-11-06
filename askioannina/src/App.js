@@ -1,7 +1,7 @@
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
-import HomePage from "./HomePage/HomePage";
+import AboutPage from "./AboutPage/AboutPage";
 import Videos from "./Videos/Videos";
-import SideBar from "./HomePage/SideBar";
+import SideBar from "./AboutPage/SideBar";
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -11,6 +11,7 @@ import 'react-social-icons/instagram'
 import 'react-social-icons/youtube'
 import TopPosts from "./top-posts/topPosts";
 import Footer from "./Footer/Footer";
+import HomePage from "./HomePage/HomePage";
 
 function App() {
     // initialize a browser router
@@ -18,6 +19,10 @@ function App() {
         {
             path: "/",
             element: <HomePage />,
+        },
+        {
+            path: "/about",
+            element: <AboutPage />,
         },
         {
             path: "/videos",

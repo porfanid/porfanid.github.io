@@ -23,6 +23,7 @@ function Videos() {
     return (
         <>
             <Navigation/>
+            <div className="w3-card w3-margin w3-margin-top">
                 {videos.map((video) => {
                     return (
 
@@ -31,6 +32,7 @@ function Videos() {
                         </div>
 
                 )})}
+            </div>
         </>
     );
 }

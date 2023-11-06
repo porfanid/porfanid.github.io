@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faEnvelope, faPhone} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import donate_image from "../donate.png";
 import {SocialIcon} from "react-social-icons";
 import "./Footer.css"
@@ -12,7 +12,6 @@ function Footer(){
                     <div className="col-md-4">
                         <h3>Contact Us</h3>
                         <p><FontAwesomeIcon icon={faEnvelope} /> Email: <a href={"mailto:billakigr16@gmail.com"}>billakigr16@gmail.com</a></p>
-                        <p><FontAwesomeIcon icon={faPhone} /> Phone: (123) 456-7890</p>
                     </div>
                     <div className="col-md-4">
                         <h3>Quick Links</h3>
