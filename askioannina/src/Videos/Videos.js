@@ -33,9 +33,6 @@ function Videos() {
     const elements = [];
 
     for (let i = 0; i < videos.length; i+=3) {
-        if(i+2<videos.length&&videos[i+2].id.videoId === undefined){
-            console.log(videos[i+2])
-        }
         elements.push(
             <div key={i} className="w3-row">
                 <div key={i} className="w3-col l4">
