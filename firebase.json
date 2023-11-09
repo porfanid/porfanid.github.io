@@ -19,6 +19,15 @@
       ]
     },
     {
+      "site": "viber-pavlos-orfanidis",
+      "public": "docs/viber",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
       "site": "askioannina",
       "public": "askioannina/comming_soon",
       "ignore": [
