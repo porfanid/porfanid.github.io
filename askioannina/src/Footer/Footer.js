@@ -1,6 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
-import donate_image from "../donate.png";
 import {SocialIcon} from "react-social-icons";
 import "./Footer.css"
 
