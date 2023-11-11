@@ -9,19 +9,11 @@ function Footer(){
         <footer className="bg-dark text-light py-5">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <h3>Contact Us</h3>
                         <p><FontAwesomeIcon icon={faEnvelope} /> Email: <a href={"mailto:billakigr16@gmail.com"}>billakigr16@gmail.com</a></p>
                     </div>
-                    <div className="col-md-4">
-                        <h3>Quick Links</h3>
-                        <ul className="list-unstyled">
-                            <a href={"https://revolut.me/vasileyyk7"}>
-                                <img style={{width: "30%"}} src={donate_image} alt={"Donate"}></img>
-                            </a>
-                        </ul>
-                    </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                         <h3>Follow Us</h3>
                         <SocialIcon className="text-light w3-margin-right" url="https://www.instagram.com/billykraniwtis/" />
                         <SocialIcon className="text-light" url="https://www.youtube.com/@billykraniotis947" />
