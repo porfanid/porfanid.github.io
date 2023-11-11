@@ -12,7 +12,6 @@ import 'react-social-icons/youtube'
 import TopPosts from "./top-posts/topPosts";
 import Footer from "./Footer/Footer";
 import HomePage from "./HomePage/HomePage";
-import Tags from "./tags/tags";
 
 function App() {
     //send_message("Hello there","306986989523")
