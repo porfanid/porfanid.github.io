@@ -36,8 +36,10 @@ function App() {
         <>
             <div className="w3-content" style={{ maxWidth: "100%" }}>
                 <header className="w3-padding-32 w3-padding-top-64">
-                    <h1><b>AskIoannina</b></h1>
-                    <p>Welcome to the personal page of <a href={"https://www.youtube.com/@billykraniotis947"}><span className="w3-tag">Billy Kraniotis</span></a></p>
+                    <div className="content">
+                    <h1 className="MainTitle"><b>Ask Ioannina</b></h1>
+                    <h2>Your story is our story !</h2>
+                    </div>
                 </header>
 
                 <div className={"w3-row"} style={{height: "100%"}}>
@@ -55,16 +57,6 @@ function App() {
                             <TopPosts/>
                         </div>
                         <hr/>
-                        <div className="w3-card w3-margin">
-                            <div className="w3-container w3-padding">
-                                <h4>Tags</h4>
-                            </div>
-                            <div className="w3-container w3-white">
-                                <p>
-                                    <Tags/>
-                                </p>
-                            </div>
-                        </div>
                     </div>
                 </div><br/>
             </div>

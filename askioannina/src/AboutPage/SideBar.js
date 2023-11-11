@@ -3,12 +3,12 @@ import alexandra from "./alaxandra.JPG";
 
 function SideBar() {
     return (
-        <div className="container mt-4">
-            <div className="row">
-                <div className="col-md-12">
-                    <div className="card mb-4 shadow">
-                        <img src={billy} alt="Billy Kraniotis" className="card-img-top" />
-                        <div className="card-body">
+        <div className="container mt-5">
+            <div className="row bg-dark">
+                <div className="col-md-12 p-3 m-2 w-100">
+                    <div className="card mb-2  p-2 m-1 bg-primary">
+                        <img src={billy} alt="Billy Kraniotis" className="card-img-top rounded-50 w-100" />
+                        <div className="card-body bg-primary">
                             <h4 className="card-title"><b>Βασίλης Κρανιώτης</b></h4>
                             <p className="card-text">
                                 Είμαι ο Βασίλης γεννήθηκα το 2002 στο Brighton ( αν και δεν μιλάω και πολύ καλα αγγλικά) και έχω ασχοληθεί με διαγωνισμούς φυσικής και μαθηματικών σε επίπεδο πανελληνίων διακρίσεων.
@@ -24,8 +24,8 @@ function SideBar() {
 
                 <div className="col-md-12">
                     <div className="card mb-4 shadow">
-                        <img src={alexandra} alt="Alexandra Patsoura" className="card-img-top" />
-                        <div className="card-body">
+                        <img src={alexandra} alt="Alexandra Patsoura" className="card-img-top rounded-50 w-100" />
+                        <div className="card-body bg-primary">
                             <h4 className="card-title"><b>Αλεξάνδρα Πατσούρα</b></h4>
                             <p className="card-text">
                                 Είμαι η Αλεξάνδρα, γεννήθηκα το 2001 στα Γιάννενα και από μικρή μου άρεσε πολύ να συζητάω για τα πάντα. Όλοι έλεγαν ότι έχω ευχέρεια λόγου και μου άρεσε πολύ να μαθαίνω πράγματα για τους γύρω μου μέσα από ουσιαστικές συζητήσεις. Πλέον ήρθε η ώρα να εξασκησω την ικανότητα μου, παίρνοντας συνεντεύξεις στο δρόμο σε κάθε πόλη της Ελλάδας, μικρή ή μεγάλη. Ανυπομονώ να ακούσω τις ιστορίες, τις εμπειρίες και τις απόψεις σας για διάφορα θέματα , πάντα με σεβασμό, χωρις πιεση και με στόχο πανω απο ολα να περάσουμε όμορφα και να το χαρούμε .

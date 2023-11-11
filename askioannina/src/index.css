@@ -2,15 +2,67 @@ body {
   font-family: "Arial", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f7f7f7;
-  color: #333;
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(45deg, #3498db, #e74c3c);
+  animation: gradientAnimation 5s linear infinite;
 }
-header {
-  background-color: #333;
-  color: white;
-  padding: 20px;
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.8);
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: cubeAnimation 5s linear infinite;
+  filter: blur(10px); /* Add a blur effect */
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 30%;
+  left: 70%;
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%) rotate(135deg);
+  animation: cubeAnimation 7s linear infinite;
+  filter: blur(10px); /* Add a blur effect */
+}
+/* Add more body::after rules for additional cubes */
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@keyframes cubeAnimation {
+  0%, 100% {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+}
+/**header {
+  background-image: url(./Assets/Img/MainBackground.jpeg);
+ /** background-size: cover;*/
+  /**padding: 10px;
+  height: 70vh;
   text-align: center;
-}
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-attachment: fixed;
+}**/
 nav {
   background-color: #444;
   color: white;
@@ -21,9 +73,6 @@ main {
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
-}
-h1 {
-  font-size: 2em;
 }
 p {
   font-size: 1.2em;
@@ -42,3 +91,45 @@ footer {
   text-align: center;
   padding: 10px;
 }
+
+
+/*My css*/
+
+
+.content{
+  font-size: 9.0em;
+  text-transform: uppercase;
+  font-family: 'Open Sans Pro', sans-serif;
+  background: url(./Assets/Img/MainBackground.jpeg);
+  background-position: center;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+.MainTitle {
+  font-size: 14.5rem;
+  font-weight: bold;
+}
+.NeonText{
+  font-size: 5rem;
+}
+.youtubeImg{
+  padding-top: 8rem;
+  padding-bottom: 9rem;
+}
+header {
+  background-image: url(./Assets/Img/MainBackground.jpeg);
+ /** background-size: cover;*/
+  padding: 10px;
+  height: 90vh;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
