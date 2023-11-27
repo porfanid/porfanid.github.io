@@ -4,7 +4,7 @@ import alexandra from "./alaxandra.JPG";
 function SideBar() {
     return (
         <div className="container mt-5">
-            <div className="row bg-dark">
+            <div className="row">
                 <div className="col-md-12 p-3 m-2 w-100">
                     <div className="card mb-2  p-2 m-1 bg-primary">
                         <img src={billy} alt="Billy Kraniotis" className="card-img-top rounded-50 w-100" />
