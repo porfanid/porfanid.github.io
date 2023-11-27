@@ -132,4 +132,44 @@ header {
   background-size: cover;
 }
 
+/* Responsive Styles */
+@media only screen and (max-width: 768px) {
+  /* Styles for small screens */
+  header {
+    height: 70vh;
+  }
 
+  .MainTitle {
+    font-size: 4rem;
+  }
+  .Form-group{
+    max-width: 22rem;
+  }
+  /* Add more responsive styles as needed */
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  /* Styles for medium screens */
+  header {
+    height: 80vh;
+  }
+
+  .content {
+    font-size: 7.0em;
+  }
+
+  /* Add more responsive styles as needed */
+}
+
+@media only screen and (min-width: 1025px) {
+  /* Styles for large screens */
+  header {
+    height: 90vh;
+  }
+
+  .content {
+    font-size: 8.0em;
+  }
+
+  /* Add more responsive styles as needed */
+}
