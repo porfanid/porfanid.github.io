@@ -29,7 +29,7 @@
     },
     {
       "site": "askioannina",
-      "public": "askioannina/comming_soon",
+      "public": "askioannina/build",
       "ignore": [
         "firebase.json",
         "**/.*",
