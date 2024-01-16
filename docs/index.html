@@ -17,6 +17,17 @@
     <link rel="manifest" href="img/favicon_io/site.webmanifest">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF34NRKF1T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-YF34NRKF1T');
+  </script>
+
   
   
   <!--  <link rel="apple-touch-icon" sizes="180x180" href="/app/resources/favicon/apple-touch-icon.png">
@@ -319,7 +330,7 @@ https://templatemo.com/tm-560-astro-motion
                   
                   <!-- Map -->
                   <!-- Cal inline embed code begins -->
-<div style="overflow:scroll" id="my-cal-inline"></div>
+<div id="my-cal-inline"></div>
 <script type="text/javascript">
   (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; typeof namespace === "string" ? (cal.ns[namespace] = api) && p(api, ar) : p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
 Cal("init", "meeting", {origin:"https://cal.com"});
