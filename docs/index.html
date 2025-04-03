@@ -1,387 +1,501 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--<script> var MemberSpace = window.MemberSpace || {"subdomain":"porfanid"}; (function(d){ var s = d.createElement("script"); s.src = "https://cdn.memberspace.com/scripts/widgets.js"; var e = d.getElementsByTagName("script")[0]; e.parentNode.insertBefore(s,e); }(document)); </script>-->
   <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pavlos Orfanidis</title>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/slick.css" type="text/css" /> 
-    <link rel="stylesheet" href="css/templatemo-style.css">
-    <script src="https://kit.fontawesome.com/b0d67becdd.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GitHub Portfolio | porfanid</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2d333b;
+      --secondary: #22272e;
+      --text: #adbac7;
+      --accent: #539bf5;
+      --card: #2d333b;
+      --gh-pages: #8957e5;
+    }
 
-    <link rel="apple-touch-icon" sizes="180x180" href="img/favicon_io/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon_io/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="img/favicon_io/site.webmanifest">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    body {
+      background-color: var(--secondary);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YF34NRKF1T"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    header {
+      background-color: var(--primary);
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-    gtag('config', 'G-YF34NRKF1T');
-  </script>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
 
-  
-  
-  <!--  <link rel="apple-touch-icon" sizes="180x180" href="/app/resources/favicon/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/app/resources/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/app/resources/favicon/favicon-16x16.png">
-  <link rel="manifest" href="/app/resources/favicon/site.webmanifest">
--->
-  <!--
-  Bing verification meta tag
-  -->
-  <meta name="msvalidate.01" content="648C27E81DD348E6CDE582440A9E1508"/>
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
 
-  <!--
-  Basic html meta tags
-  -->
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      margin-bottom: 1rem;
+    }
 
-  <meta name="keywords" content="Pavlos Orfanidis, Pavlos, Orfanidis, Personal Page, IT, Computers, projects, personal site angular, personal site contact"/>
-  <meta name="description" content="This is a site I created to demonstrate the projects I have worked on"/>
-  <meta name="subject" content="Personal Site for Pavlos Orfanidis">
-  <meta name="copyright" content="Pavlos Orfanidis">
-  <meta name="language" content="EN">
-  <meta name="robots" content="index,follow"/>
-  <meta name="revised" content="Tuesday, April 27th, 2010, 5:15 pm"/>
-  <meta name="abstract" content="A personal page for Pavlos Orfanidis. Please view the projects and if you have any ideas on how to help me, I would be glad to hear">
-  <meta name="topic" content="">
-  <meta name="summary" content="">
-  <meta name="Classification" content="Personal">
-  <meta name="author" content="Pavlos Orfanidis, pavlos@orfanidis.net.gr">
-  <meta name="designer" content="Pavlos Orfanidis">
-  <meta name="copyright" content="Pavlos Orfanidis">
-  <meta name="reply-to" content="pavlos@orfanidis.net.gr">
-  <meta name="owner" content="Pavlos Orfanidis">
-  <meta name="url" content="http://pavlos.orfanidis.net.gr">
-  <meta name="identifier-URL" content="http://pavlos.orfanidis.net.gr">
-  <meta name="directory" content="submission">
-  <meta name="category" content="Personal">
-  <meta name="coverage" content="Worldwide">
-  <meta name="distribution" content="Global">
-  <meta name="rating" content="General">
-  <meta name="revisit-after" content="7 days">
-  <meta http-equiv="Expires" content="0">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Cache-Control" content="no-cache">
+    .profile-name {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
 
-  <!--
-  Apple Meta tags
-  -->
+    .profile-bio {
+      max-width: 600px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta content="yes" name="apple-touch-fullscreen"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="format-detection" content="telephone=no">
+    .profile-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 0;
+    }
 
-  <!--
-  Facebook tags
-  -->
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-  <meta name="og:title" content="Pavlos Orfanidis"/>
-  <meta name="og:type" content="article"/>
-  <meta name="og:url" content="http://pavlos.orfanidis.net.gr"/>
-  <meta name="og:url" content="https://pavlos.orfanidis.net.gr"/>
-  <meta name="og:description" content="This is a site I created to demonstrate the projects I have worked on"/>
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
 
-  <meta name="twitter:card" content="summary"/>
-  <meta name="twitter:title" content="Pavlos Orfanidis"/>
-  <meta name="twitter:description" content="This is a site I created to demonstrate the projects I have worked on"/>
-<!--
-    
-TemplateMo 560 Astro Motion
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
 
-https://templatemo.com/tm-560-astro-motion
+    .social-link {
+      color: var(--text);
+      font-size: 1.5rem;
+      transition: color 0.3s;
+    }
 
--->
+    .social-link:hover {
+      color: var(--accent);
+    }
+
+    .projects {
+      padding: 3rem 0;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .project-card {
+      background-color: var(--card);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-content {
+      padding: 1.5rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-title a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .project-title a:hover {
+      text-decoration: underline;
+    }
+
+    .pages-badge {
+      display: flex;
+      align-items: center;
+      background-color: var(--gh-pages);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: opacity 0.3s;
+    }
+
+    .pages-badge:hover {
+      opacity: 0.9;
+    }
+
+    .pages-badge i {
+      margin-right: 5px;
+    }
+
+    .project-description {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .project-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .project-language {
+      display: flex;
+      align-items: center;
+    }
+
+    .language-color {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .project-stats {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .project-stat {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(255, 255, 255, 0.1);
+      border-left-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    footer {
+      background-color: var(--primary);
+      padding: 2rem 0;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .footer-text {
+      font-size: 0.9rem;
+    }
+
+    .footer-text a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <video autoplay muted loop id="bg-video">
-        <source src="https://github.com/porfanid/storage/raw/main/website/video/gfp-astro-timelapse.mp4" type="video/mp4">
-    </video>
-    <div class="page-container">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-xs-12">
-            <div class="cd-slider-nav">
-              <nav class="navbar navbar-expand-lg" id="tm-nav">
-                <a class="navbar-brand" href="#">Pavlos Orfanidis</a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-supported-content" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbar-supported-content">
-                    <ul class="navbar-nav mb-2 mb-lg-0">
-                      <li class="nav-item selected">
-                        <a class="nav-link" aria-current="page" href="#0" data-no="1">Home</a>
-                        <div class="circle"></div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#0" data-no="2">Projects</a>
-                        <div class="circle"></div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#0" data-no="3">About</a>
-                        <div class="circle"></div>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#0" data-no="4">Contact</a>
-                        <div class="circle"></div>
-                      </li>
-                    </ul>
-                  </div>
-              </nav>
-            </div>
-          </div>          
-        </div>        
-      </div>      
-      <div class="container-fluid tm-content-container">
-        <ul class="cd-hero-slider mb-0 py-5">
-          <li class="px-3" data-page-no="1">
-            <div class="page-width-1 page-center" >
-              <div class="d-flex position-relative tm-border-top tm-border-bottom intro-container">
-                <div class="intro-left tm-bg-dark">
-                  <h2 class="mb-6">Welcome to my Personal Page</h2>
-                  <p class="mb-6">
-                    This page was created so that I can show the work and the projects that I have created.
-                  </p>
-                  <p class="mb-6">
-                    You can use any of the projects described here or ound on my <a href="https://github.com/porfanid">GitHub account</a> by following the guidelines provided by the LICENSE found in each project.
-                  </p>
-
-                  <p>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <a href="https://facebook.com/porfanid"><i class="fa fa-facebook"></i></a>
-                      </div>
-                      <div class="col-md-3">
-                        <a href="https://instagram.com/porfanid"><i class="fa fa-instagram"></i></a>
-                      </div>
-                      <div class="col-md-3">
-                        <a href="https://github.com/porfanid"><i class="fa fa-github"></i></a>
-                      </div>
-                      <div class="col-md-3">
-                        <a href="https://www.linkedin.com/in/porfanid/"><i class="fa fa-linkedin"></i></a>
-                      </div>
-                    </div>
-                  </p>
-
-                </div>
-                <div class="intro-right">
-                  <img src="img/home-img-1.jpg" alt="Image" width="60%" class="img-fluid intro-img-1">
-                  <img src="img/home-img-2.jpg" alt="Image" width="60%" class="img-fluid intro-img-2">
-                </div>
-                <div class="circle intro-circle-1"></div>
-                <div class="circle intro-circle-2"></div>
-                <div class="circle intro-circle-3"></div>
-                <div class="circle intro-circle-4"></div>
-              </div>
-              <div class="text-center">
-                <a href="#0" data-page-no="2" class="btn btn-primary tm-intro-btn tm-page-link">
-                  View Projects
-                </a>
-              </div>            
-            </div>            
-          </li>
-          <li data-page-no="2">
-            <!-- Image Carousel -->
-            <div class="mx-auto position-relative gallery-container">
-              <div class="circle intro-circle-1"></div>
-              <div class="circle intro-circle-2"></div>
-              <div class="mx-auto tm-border-top gallery-slider">
-                
-                <figure class="effect-julia item">
-                  <img src="https://heavy-local.com/assets/HeavyLocalLogo.jpg" style="height: auto;width:240px;"/>
-                  <script src="https://cdn.jsdelivr.net/gh/lepture/github-cards@latest/jsdelivr/widget.js"></script>
-                  <figcaption>
-                        <div>
-                            <p>
-                              Heavy Local Greece
-                            </p>
-                        </div>
-                        <a href="https://heavy-local.com/">View project</a>
-                    </figcaption>
-                </figure>
-
-                
-                <figure class="effect-julia item">
-                  <img src="https://porfanid.github.io/daidalus/DAIDALUS.jpeg" style="height: 30vh;width: auto;"/>
-                    <figcaption>
-                        <div>
-                            <p>
-                              Detect and Avoid Alerting Logic for Unmanned Systems
-                            </p>
-                        </div>
-                        <a href="https://porfanid.github.io/daidalus/">View project</a>
-                    </figcaption>
-                </figure>
-                
-                <figure class="effect-julia item">
-                  <img src="https://avatars.githubusercontent.com/u/37713493?s=200&v=4" style="height: auto;width: 40vh;"/>
-                    <figcaption>
-                        <div>
-                            <p>
-                              Get started with the open source software
-                            </p>
-                        </div>
-                        <a href="https://github.com/porfanid/first-contributions">View project</a>
-                    </figcaption>
-                </figure>
-                
-                <figure class="effect-julia item">
-                  <img src="https://raw.githubusercontent.com/porfanid/QuestMatch/main/images/QuestMatch.png"/>
-                    <figcaption>
-                        <div>
-                            <p>The QuestMatch open source project</p>
-                        </div>
-                        <a href="https://questmatch2023.web.app/">View project</a>
-                    </figcaption>
-                </figure>
-                <figure class="effect-julia item">
-                  <img src="./img/Server_Check.png"/>
-                    <figcaption>
-                        <div>
-                            <p>The Server-Check project</p>
-                        </div>
-                        <a href="https://cse.uoi.gr/~cse74134/servers/">View project</a>
-                    </figcaption>
-                </figure>
-                <figure class="effect-julia item">
-                  <img src="https://github.com/porfanid/TurnIn/blob/master/images/assignment.png?raw=true"/>
-                    <figcaption>
-                        <div>
-                            <p>The TurnIn project</p>
-                        </div>
-                        <a href="https://porfanid.github.io/TurnIn/">View project</a>
-                    </figcaption>
-                </figure>
-                <figure class="effect-julia item">
-                  <img src="https://raw.githubusercontent.com/porfanid/Teach/main/images/grading_finish.png"/>
-                    <figcaption>
-                        <div>
-                            <p>The Teach project</p>
-                        </div>
-                        <a href="https://github.com/porfanid/Teach">View project</a>
-                    </figcaption>
-                </figure>
-                
-                
-                <figure class="effect-julia item">
-                  <img src="./img/hangman.png"/>
-                    <figcaption>
-                        <div>
-                            <p>Simple Hangman game</p>
-                        </div>
-                        <a href="https://hangman.orfanidis.net.gr/">View project</a>
-                    </figcaption>
-                </figure>
-
-
-              </div>
-            </div>
-          </li>
-          <li data-page-no="3" class="px-3">
-            <div class="position-relative page-width-1 page-right tm-border-top tm-border-bottom">
-              <div class="circle intro-circle-1"></div>
-              <div class="circle intro-circle-2"></div>
-              <div class="circle intro-circle-3"></div>
-              <div class="circle intro-circle-4"></div>
-              <div class="tm-bg-dark content-pad">
-                <h2 class="mb-4">About me</h2>
-                <p class="mb-4">
-                  I am a student at the <a href="https://www.cs.uoi.gr">Computer Science Engineering</a> department at the <a href="https://www.cs.uoi.gr">University of Ioannina</a>. I am programming apps since I was a little kid and I have made a lot of projects.
-                </p>
-                <p>
-                  I have worked in many different programming languages.
-                </p>
-                <p>
-                  I started learning <span class="highlight">Fortran</span> because that was what my father could teach me. Then I moved on to <span class="highlight">bash</span>,<span class="highlight">html</span>, <span class="highlight">css</span> and <span class="highlight">javascript</span>, when I created my first web site what I was in junior highschool since I wanted the server to update on its own without me having to do it manually. After that I started programming a few apps on .NET.
-                </p>
-                <p>
-                  Then I went to the university, where I was taught <span class="highlight">python</span>, <span class="highlight">java</span>, <span class="highlight">C</span> (I also started learning <span class="highlight">C++</span>) an I started learning some <span class="highlight">php</span> because I wanted to do a few projects that would make my life at the university a bit easier. They also taught us how to program in <span class="highlight">Haskell</span> and <span class="highlight">Prolog</span>, but unlike the other programming languages, I did not go any deeper because I did not believe that any of that would really be helpful to me.
-                </p>
-              </div>              
-            </div>
-          </li>
-          <li data-page-no="4">
-            <div class="mx-auto page-width-2">
-              <div class="row">
-                <div class="col-md-6 me-0 ms-auto">
-                  <h2 class="mb-4">Contact Me</h2>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 tm-contact-left">
-                  <div class="card">
-                    <div class="card-body">
-                      <script charset="utf-8" type="text/javascript" src="https://js-eu1.hsforms.net/forms/embed/v2.js"></script>
-                      <script>
-                        hbspt.forms.create({
-                          region: "eu1",
-                          portalId: "139644128",
-                          formId: "98f7c442-7705-4ca7-8281-60f02d1f538c"
-                        });
-                      </script>
-                  </div>
-                  </div>
-
-                  <div class="mt-4">
-                    <script async
-                      src="https://js.stripe.com/v3/buy-button.js">
-                    </script>
-                  
-                    <stripe-buy-button
-                      buy-button-id="buy_btn_1OAec3AE1ug5o8pdPf4pESiK"
-                      publishable-key="pk_live_51JDxV3AE1ug5o8pdigKipTLZK9QTbAMvyUo4D1GiwAB1e6O1J2jbuLVuPj7PTRVNRDdz4y2mDLaTyWk0QGNTNoDV00VqkARtfL"
-                    >
-                    </stripe-buy-button>
-                  </div>
-                </div>
-                <div class="col-md-6 tm-contact-right">                  
-          
-                  
-                  <!-- Map -->
-<!-- Google Calendar Appointment Scheduling begin -->
-<div class="card">
-  <div class="card-body">
-<iframe src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ0oLyij4vhEjrJGDnxX2ar_fRP4nMiyFWUuwsCvk-66UwWwfX4M9OdCRVlLyu8pak1BMQLpFQPA?gv=true" style="border: 0" width="100%" height="600" frameborder="0"></iframe>
-</div>
-</div>
-<!-- end Google Calendar Appointment Scheduling -->
-
-                </div>
-              </div>
-            </div>            
-          </li>
-        </ul>
-    </div>
-    <div class="container-fluid">
-      <footer class="row mx-auto tm-footer">
-        <div class="col-md-6 px-0">
-          Copyright 2023 Pavlos Orfanidis. All rights reserved.
+<header>
+  <div class="container">
+    <div class="profile">
+      <img id="profile-img" class="profile-img" src="/api/placeholder/150/150" alt="Profile Picture">
+      <h1 id="profile-name" class="profile-name">Loading...</h1>
+      <p id="profile-bio" class="profile-bio">Loading...</p>
+      <div class="profile-stats">
+        <div class="stat">
+          <span id="repos-count" class="stat-value">0</span>
+          <span class="stat-label">Repositories</span>
         </div>
-        <div class="col-md-6 px-0 tm-footer-right">
-          Designed by <a rel="sponsored" href="https://pavlos.orfanidis.net.gr" target="_blank" class="tm-link-white">Pavlos Orfanidis</a>
+        <div class="stat">
+          <span id="followers-count" class="stat-value">0</span>
+          <span class="stat-label">Followers</span>
         </div>
-      </footer>
+        <div class="stat">
+          <span id="following-count" class="stat-value">0</span>
+          <span class="stat-label">Following</span>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="#" id="github-link" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" id="twitter-link" class="social-link" target="_blank" style="display: none;"><i class="fab fa-twitter"></i></a>
+        <a href="#" id="linkedin-link" class="social-link" target="_blank" style="display: none;"><i class="fab fa-linkedin"></i></a>
+        <a href="#" id="website-link" class="social-link" target="_blank" style="display: none;"><i class="fas fa-globe"></i></a>
+      </div>
     </div>
   </div>
-  <!-- Preloader, https://ihatetomatoes.net/create-custom-preloading-screen/ -->
-  <div id="loader-wrapper">            
-    <div id="loader"></div>
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
-  </div>  
-  <script src="js/jquery-3.5.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/slick.js"></script>
-  <script src="js/templatemo-script.js"></script>
+</header>
+
+<section class="projects">
+  <div class="container">
+    <h2 class="section-title">My Projects</h2>
+    <div id="projects-container">
+      <div class="loader">
+        <div class="spinner"></div>
+      </div>
+      <div id="projects-grid" class="projects-grid"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p class="footer-text">© <span id="current-year"></span> | Built with <i class="fas fa-heart" style="color: #ff6b6b;"></i> by <a id="footer-name" href="#">porfanid</a></p>
+    <p class="footer-text">Powered by GitHub API</p>
+  </div>
+</footer>
+
+<script>
+  const username = 'porfanid'; // Replace with your GitHub username
+
+  // Get current year for footer
+  document.getElementById('current-year').textContent = new Date().getFullYear();
+
+  // Fetch user data
+  async function fetchUserData() {
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}`);
+      const userData = await response.json();
+
+      // Update profile information
+      document.getElementById('profile-name').textContent = userData.name || username;
+      document.getElementById('profile-bio').textContent = userData.bio || 'No bio available';
+      document.getElementById('profile-img').src = userData.avatar_url;
+      document.getElementById('repos-count').textContent = userData.public_repos;
+      document.getElementById('followers-count').textContent = userData.followers;
+      document.getElementById('following-count').textContent = userData.following;
+      document.getElementById('footer-name').textContent = userData.name || username;
+
+      // Update social links
+      document.getElementById('github-link').href = userData.html_url;
+
+      if (userData.twitter_username) {
+        const twitterLink = document.getElementById('twitter-link');
+        twitterLink.href = `https://twitter.com/${userData.twitter_username}`;
+        twitterLink.style.display = 'inline';
+      }
+
+      if (userData.blog) {
+        const websiteLink = document.getElementById('website-link');
+        websiteLink.href = userData.blog.startsWith('http') ? userData.blog : `https://${userData.blog}`;
+        websiteLink.style.display = 'inline';
+      }
+
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      document.getElementById('profile-name').textContent = username;
+      document.getElementById('profile-bio').textContent = 'Could not load profile data';
+    }
+  }
+
+  // Check if a repository has GitHub Pages enabled
+  async function checkForGitHubPages(repo) {
+    try {
+      // First, check if GitHub Pages is enabled directly from the repo data
+      if (repo.has_pages) {
+        // The default GitHub Pages URL format
+        return `https://${username}.github.io/${repo.name}`;
+      }
+
+      // Second, check if the homepage URL is set in repo data
+      if (repo.homepage && (
+              repo.homepage.includes(`${username}.github.io`) ||
+              repo.homepage.includes('github.io') ||
+              repo.homepage.startsWith('http')
+      )) {
+        return repo.homepage;
+      }
+
+      // If neither is true, this repo doesn't have GitHub Pages
+      return null;
+    } catch (error) {
+      console.error(`Error checking GitHub Pages for ${repo.name}:`, error);
+      return null;
+    }
+  }
+
+  // Fetch repositories
+  async function fetchRepositories() {
+    try {
+      const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
+      const repos = await response.json();
+
+      const loader = document.querySelector('.loader');
+      loader.style.display = 'none';
+
+      const projectsGrid = document.getElementById('projects-grid');
+
+      // Language colors
+      const languageColors = {
+        "JavaScript": "#f1e05a",
+        "Python": "#3572A5",
+        "Java": "#b07219",
+        "HTML": "#e34c26",
+        "CSS": "#563d7c",
+        "TypeScript": "#2b7489",
+        "C#": "#178600",
+        "C++": "#f34b7d",
+        "C": "#555555",
+        "PHP": "#4F5D95",
+        "Ruby": "#701516",
+        "Go": "#00ADD8",
+        "Swift": "#ffac45",
+        "Kotlin": "#F18E33",
+        "Rust": "#dea584",
+        "Shell": "#89e051",
+        "PowerShell": "#012456",
+        "Jupyter Notebook": "#DA5B0B",
+      };
+
+      // Filter out forks if you want to show only your original projects
+      // const filteredRepos = repos.filter(repo => !repo.fork);
+      const filteredRepos = repos; // Or show all repos
+
+      if (filteredRepos.length === 0) {
+        projectsGrid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">No repositories found</p>';
+        return;
+      }
+
+      // Process each repository
+      for (const repo of filteredRepos) {
+        // Check if this repo has GitHub Pages
+        const pagesUrl = await checkForGitHubPages(repo);
+
+        const card = document.createElement('div');
+        card.className = 'project-card';
+
+        // Format date
+        const updatedAt = new Date(repo.updated_at);
+        const formattedDate = updatedAt.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+
+        // Create the GitHub Pages badge if available
+        const pagesBadge = pagesUrl ?
+                `<a href="${pagesUrl}" target="_blank" class="pages-badge">
+                            <i class="fas fa-globe"></i> Live Demo
+                        </a>` : '';
+
+        card.innerHTML = `
+                        <div class="project-content">
+                            <h3 class="project-title">
+                                <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                                ${pagesBadge}
+                            </h3>
+                            <p class="project-description">${repo.description || 'No description available'}</p>
+                            <div class="project-meta">
+                                ${repo.language ? `
+                                <div class="project-language">
+                                    <span class="language-color" style="background-color: ${languageColors[repo.language] || '#8257e5'}"></span>
+                                    <span>${repo.language}</span>
+                                </div>` : ''}
+                                <div class="project-stats">
+                                    <div class="project-stat">
+                                        <i class="far fa-star"></i>
+                                        <span>${repo.stargazers_count}</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="fas fa-code-branch"></i>
+                                        <span>${repo.forks_count}</span>
+                                    </div>
+                                    <div class="project-stat">
+                                        <i class="far fa-calendar-alt"></i>
+                                        <span>${formattedDate}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
+        projectsGrid.appendChild(card);
+      }
+
+    } catch (error) {
+      console.error('Error fetching repositories:', error);
+      document.getElementById('projects-grid').innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">Could not load repositories</p>';
+      document.querySelector('.loader').style.display = 'none';
+    }
+  }
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', () => {
+    fetchUserData();
+    fetchRepositories();
+  });
+</script>
 </body>
 </html>
