@@ -597,13 +597,24 @@
     }
 
     async function fetchGoodreadsFeed(shelf, containerId) {
+        // --- ΑΛΛΑΓΗ ΕΔΩ ---
+        // Αντικαταστήστε το 'https://[YOUR_DOMAIN_HERE]/goodreads-proxy.php'
+        // με το πραγματικό URL του αρχείου που ανεβάσατε.
+        const proxyUrl = `https://corsproxy.io/?`;
+
         const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?key=TgVPqO9a0aU8OtpwFnVSWBM546aPO3vfYOxhbSmy-52jlDx8&shelf=${shelf}`;
         const container = document.getElementById(containerId);
         const booksGrid = container.querySelector('.books-grid');
         const loader = container.querySelector('.loader');
 
         try {
-            const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(rssUrl)}`);
+            // Χρησιμοποιούμε το δικό μας proxy script
+            const response = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const text = await response.text();
             const parser = new DOMParser();
             const xml = parser.parseFromString(text, "application/xml");
@@ -615,7 +626,8 @@
                 booksGrid.innerHTML = '<p>No books found on this shelf.</p>';
                 return;
             }
-
+            
+            // Ο υπόλοιπος κώδικας παραμένει ίδιος...
             items.forEach(item => {
                 const title = item.querySelector("title").textContent;
                 const author = item.querySelector("author_name").textContent;
