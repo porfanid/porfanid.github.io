@@ -1,0 +1,547 @@
+/* Copied and adapted from docs/index.html <style> */
+:root {
+  --primary: #2d333b;
+  --secondary: #22272e;
+  --text: #adbac7;
+  --accent: #539bf5;
+  --card: #2d333b;
+  --gh-pages: #8957e5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: var(--secondary);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+header {
+  /* Κάνουμε το background ημιδιαφανές */
+  background-color: rgba(45, 51, 59, 0.5); 
+  
+  /* Προσθέτουμε το "frosted glass" εφέ */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Για συμβατότητα με Safari */
+  
+  padding: 2rem 0;
+  text-align: center;
+  
+  /* Προσθέτουμε μια διακριτική γραμμή στο κάτω μέρος */
+  border-bottom: 1px solid rgba(173, 186, 199, 0.1); 
+  
+  /* Αφαιρούμε την παλιά σκιά που δεν χρειάζεται πλέον */
+  box-shadow: none; 
+}
+
+/* Styling for the Chess Component */
+.chess-games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.chess-game-card {
+  background-color: var(--card);
+  border: 1px solid rgba(173, 186, 199, 0.1);
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Adjusted gap */
+}
+
+/* Ενημέρωσε το υπάρχον chess-card-header */
+.chess-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Τοποθετεί τα στοιχεία με χώρο μεταξύ τους */
+  flex-wrap: wrap; /* Επιτρέπει να "σπάσει" σε μικρότερες οθόνες */
+  gap: 0.5rem;
+  font-size: 1.1rem;
+}
+
+/* Νέες κλάσεις για τη σωστή δομή */
+.player-info {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem; /* Δημιουργεί κενό μεταξύ κύκλου και ονόματος */
+}
+
+.player-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.player-link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.vs-separator {
+  color: #848d97; /* Ένα πιο ουδέτερο χρώμα για το "vs" */
+  font-weight: 500;
+}
+
+.chess-player-color {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  margin-right: 0rem;
+  border: 2px solid #555;
+}
+.chess-player-color.white { background-color: #f0d9b5; }
+.chess-player-color.black { background-color: #312e2b; }
+
+.chess-card-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* font-family: monospace; /* Removed, no longer needed */
+  color: #a2b0c0;
+}
+
+.game-date {
+  font-size: 0.9rem;
+}
+
+/* New styles for the metadata section */
+.chess-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+  color: #a2b0c0;
+  border-top: 1px solid rgba(173, 186, 199, 0.1);
+  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.chess-card-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chess-result {
+  font-weight: bold;
+  padding: 0.25rem 0.75rem;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.chess-result.victory { color: #38a169; background-color: rgba(56, 161, 105, 0.1); }
+.chess-result.defeat { color: #e53e3e; background-color: rgba(229, 62, 62, 0.1); }
+.chess-result.draw { color: #a0aec0; background-color: rgba(160, 174, 192, 0.1); }
+.chess-result.inprogress { color: #f6ad55; background-color: rgba(246, 173, 85, 0.1); }
+
+
+.chess-view-game {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+  align-self: flex-end;
+  margin-top: auto; /* Pushes the link to the bottom */
+}
+.chess-view-game:hover { text-decoration: underline; }
+.chess-view-game i { font-size: 0.8em; margin-left: 5px; }
+
+/* Νέο, βελτιωμένο στυλ για το Joke Component */
+.joke-container {
+  max-width: 500px;
+  margin: 0 auto 2rem auto;
+  padding: 1.25rem;
+  border: 1px solid rgba(173, 186, 199, 0.1);
+  border-radius: 8px;
+  position: relative;
+}
+
+.joke-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.joke-header h4 {
+  color: var(--accent);
+  margin: 0;
+}
+
+.joke-content {
+  min-height: 70px; /* Αποτρέπει το "τρεμόπαιγμα" του layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.joke-setup {
+  margin-bottom: 0.5rem;
+}
+
+.joke-punchline {
+  color: #a2b0c0;
+}
+
+/* Στυλ για το νέο κουμπί-εικονίδιο */
+.joke-refresh-button {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  border-radius: 50%;
+  transition: transform 0.4s ease, background-color 0.2s;
+}
+
+.joke-refresh-button:hover:not(:disabled) {
+  transform: rotate(180deg);
+  background-color: rgba(83, 155, 245, 0.1);
+}
+
+.joke-refresh-button:disabled {
+  color: #536170;
+  cursor: not-allowed;
+}
+
+.app-container {
+  /* Ορίζουμε μια CSS μεταβλητή για την εικόνα */
+  --bg-image: url('https://api.nasa.gov/assets/img/general/apod.jpg'); /* Μια default εικόνα */
+  
+  min-height: 100vh;
+  position: relative;
+  
+  /* Το "μαγικό" σημείο: βάζουμε ένα σκούρο φίλτρο ΠΑΝΩ από την εικόνα */
+  background-image: 
+    linear-gradient(rgba(10, 20, 30, 0.7), rgba(10, 20, 30, 0.7)), 
+    var(--bg-image);
+  
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Κρατάει την εικόνα σταθερή καθώς κάνεις scroll */
+  transition: background-image 0.8s ease-in-out;
+}
+
+/* APOD visible hero to ensure image shows regardless of background rendering */
+.apod-hero {
+  position: relative;
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  border-bottom: 1px solid rgba(173, 186, 199, 0.12);
+}
+
+.apod-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,20,30,0.55) 0%, rgba(10,20,30,0.65) 60%, rgba(10,20,30,0.75) 100%);
+  display: flex;
+  align-items: end;
+}
+
+/* Styling για τον κεντρικό κοντέινερ του περιεχομένου */
+.main-content-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto; /* Δίνει λίγο κενό πάνω και κάτω */
+  padding: 1rem;
+
+  /* Ημιδιαφανές background με frosted-glass εφέ */
+  background-color: rgba(34, 39, 46, 0.7); /* Χρησιμοποιούμε το --secondary χρώμα με διαφάνεια */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 12px; /* Στρογγυλεμένες γωνίες */
+  border: 1px solid rgba(173, 186, 199, 0.1);
+}
+
+/* Μικρή προσαρμογή για να μην υπάρχει διπλό padding στις ενότητες */
+.main-content-wrapper .projects,
+.main-content-wrapper .books-section {
+  padding-top: 1rem;
+}
+
+.apod-title {
+  color: var(--accent);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.apod-subtitle {
+  color: #a2b0c0;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  margin-bottom: 1rem;
+}
+
+.profile-name {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+  max-width: 600px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.profile-stats {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  color: var(--text);
+  font-size: 1.5rem;
+  transition: color 0.3s;
+}
+
+.social-link:hover {
+  color: var(--accent);
+}
+
+.main-tabs-nav {
+  display: flex;
+  justify-content: center;
+  
+  /* Εφαρμόζουμε το ίδιο ημιδιαφανές εφέ */
+  background-color: rgba(45, 51, 59, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  padding-top: 1rem;
+  
+  /* Διατηρούμε τη συνοχή στο design */
+  border-bottom: 1px solid rgba(173, 186, 199, 0.1);
+}
+
+.main-tab-button {
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.main-tab-button.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.main-tab-content { display: none; }
+.main-tab-content.active { display: block; }
+
+.projects { padding: 3rem 0; }
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--accent);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.project-card {
+  background-color: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-content { padding: 1.5rem; }
+
+.project-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.project-title a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.project-title a:hover { text-decoration: underline; }
+
+.pages-badge {
+  display: flex;
+  align-items: center;
+  background-color: var(--gh-pages);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.pages-badge:hover { opacity: 0.9; }
+.pages-badge i { margin-right: 5px; }
+
+.project-description {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.project-language {
+  display: flex;
+  align-items: center;
+}
+
+.language-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+
+.project-stats { display: flex; gap: 1rem; }
+.project-stat { display: flex; align-items: center; gap: 5px; }
+
+.loader { display: flex; justify-content: center; margin: 2rem 0; }
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+footer {
+  background-color: var(--primary);
+  padding: 2rem 0;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.footer-text { font-size: 0.9rem; }
+.footer-text a { color: var(--accent); text-decoration: none; }
+.footer-text a:hover { text-decoration: underline; }
+
+.books-section { padding: 3rem 0; }
+
+.tabs { display: flex; justify-content: center; margin-bottom: 2rem; }
+
+.tab-button {
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.tab-button.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.books-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.book-card {
+  background-color: var(--card);
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding: 1rem;
+}
+
+.book-card img { max-width: 100%; border-radius: 4px; margin-bottom: 0.5rem; }
+.book-title a { color: var(--accent); text-decoration: none; font-weight: 600; }
+.book-author { font-size: 0.9rem; color: var(--text); }
+
+@media (max-width: 768px) {
+  .projects-grid { grid-template-columns: 1fr; }
+  .profile-stats { flex-wrap: wrap; justify-content: center; }
+}

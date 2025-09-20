@@ -1,1 +1,15 @@
+# Node/Vite
+node_modules/
+dist/
+
+# Env files
+.env
+.env.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Existing entry
 askioannina/node_modules

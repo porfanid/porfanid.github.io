@@ -1,30 +1,14 @@
 {
-  "hosting": [
+  "functions": [
     {
-      "site": "pavlos-quantum-loop",
-      "public": "docs",
+      "source": "functions",
+      "codebase": "default",
       "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ]
-    },
-    {
-      "site": "pavlosorfanidis",
-      "public": "docs/payzy",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
-      ]
-    },
-    {
-      "site": "viber-pavlos-orfanidis",
-      "public": "docs/viber",
-      "ignore": [
-        "firebase.json",
-        "**/.*",
-        "**/node_modules/**"
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
       ]
     }
   ]
