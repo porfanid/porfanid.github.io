@@ -6,6 +6,7 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation';
 // 1. Ορίστε εδώ τα ράφια που θα εμφανίζονται ως tabs
 const SHELVES_TO_DISPLAY = [
   { id: 'favorites', label: 'Favorites' },
+  { id: 'comp-sci', label: 'Computer Science' },
   { id: 'med', label: 'Medicine' },
   { id: 'mystery', label: 'Mystery' },
   { id: 'sci-fi-fantacy', label: 'Sci-FI/Fantacy' },
