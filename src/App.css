@@ -505,7 +505,29 @@ footer {
 
 .books-section { padding: 3rem 0; }
 
-.tabs { display: flex; justify-content: center; margin-bottom: 2rem; }
+.tabs {
+  display: flex;
+  justify-content: flex-start; /* Αλλάζει από center σε flex-start */
+  margin-bottom: 2rem;
+  overflow-x: auto; /* Επιτρέπει το οριζόντιο scroll */
+  white-space: nowrap; /* Αποτρέπει την αναδίπλωση των κουμπιών */
+  -webkit-overflow-scrolling: touch; /* Για ομαλό scroll σε mobile */
+  padding-bottom: 10px; /* Προσθέτει χώρο για το scrollbar */
+}
+
+/* Βελτιωμένο στυλ για το scrollbar (προαιρετικό) */
+.tabs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tabs::-webkit-scrollbar-thumb {
+  background-color: rgba(173, 186, 199, 0.2);
+  border-radius: 3px;
+}
+
+.tabs::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(173, 186, 199, 0.4);
+}
 
 .tab-button {
   background: none;
