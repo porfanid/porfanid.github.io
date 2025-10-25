@@ -144,8 +144,9 @@ function Books() {
       key={s.id}
       // Link to the current path but change the query parameter
       to={`?shelf=${s.id}`}
-      // Check if the current shelf in the URL matches this NavLink's shelf
-      className={`tab-button ${activeShelf === s.id ? 'active' : ''}`}
+      // Use className as a function to prevent NavLink from automatically applying active class
+      // We manually control the active state based on the query parameter
+      className={() => `tab-button ${activeShelf === s.id ? 'active' : ''}`}
       replace // Replace history entry instead of pushing
     >
       {s.label}
@@ -193,7 +194,12 @@ function Books() {
   return (
     <div ref={sectionAnimationRef}>
       <h2 className="section-title" style={{ marginTop: '2rem' }}>Books</h2>
+      <div style={{
+      display: "flex",
+  	justifyContent: "center"
+      }}>
       <div className="tabs">{shelfTabs}</div>
+      </div>
       <div className="tab-content active">
         {/* Render content based on activeShelf from URL */}
         {booksGrid(activeShelf)}
