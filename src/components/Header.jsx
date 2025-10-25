@@ -30,7 +30,6 @@ function Header({ username }) {
           following: data.following,
           html_url: data.html_url,
           twitter_username: data.twitter_username,
-          blog: data.blog,
         })
       } catch (e) {
         if (!isMounted) return
@@ -79,11 +78,23 @@ function Header({ username }) {
                 <i className="fab fa-twitter" />
               </a>
             )}
-            {profile?.blog && (
-              <a className="social-link" href={profile.blog.startsWith('http') ? profile.blog : `https://${profile.blog}`} target="_blank" rel="noreferrer">
-                <i className="fas fa-globe" />
-              </a>
-            )}
+            
+              <a href="mailto:pavlos@orfanidis.net.gr" title="Email" className="social-link">
+  <i className="fa-solid fa-envelope"></i> {/* Άλλαξε το class σε className */}
+</a>
+            
+            {/* LinkedIn - Αν δεν έρχεται από το API, μπορείς να το έχεις σταθερό */}
+  {!profile?.blog && ( // Εμφάνισέ το μόνο αν δεν υπάρχει blog link από το API για να μην είναι διπλό
+       <a href="https://www.linkedin.com/in/porfanid/" target="_blank" rel="noreferrer" className="social-link" title="LinkedIn">
+         <i className="fab fa-linkedin"></i> {/* Χρησιμοποιούμε Font Awesome */}
+       </a>
+   )}
+   
+   <a href="/CV_EN.pdf" download className="social-link" title="Download CV (EN)">
+    <i className="fas fa-file-arrow-down"></i> {/* Χρησιμοποιούμε Font Awesome */}
+  </a>
+  
+  <a className="social-link" href="https://keys.openpgp.org/vks/v1/by-fingerprint/7F4A64C4D77ADF08A616BEF6666855A91B3897F4" target="_blank" title="PGP Key"><i class="fas fa-key"></i></a>
           </div>
         </div>
       </div>
