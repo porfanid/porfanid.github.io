@@ -144,8 +144,9 @@ function Books() {
       key={s.id}
       // Link to the current path but change the query parameter
       to={`?shelf=${s.id}`}
-      // Check if the current shelf in the URL matches this NavLink's shelf
-      className={`tab-button ${activeShelf === s.id ? 'active' : ''}`}
+      // Use className as a function to prevent NavLink from automatically applying active class
+      // We manually control the active state based on the query parameter
+      className={() => `tab-button ${activeShelf === s.id ? 'active' : ''}`}
       replace // Replace history entry instead of pushing
     >
       {s.label}
