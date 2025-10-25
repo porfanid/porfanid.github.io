@@ -526,8 +526,9 @@ footer {
 /* --- Books Section Tabs (Πανομοιότυπο με Main Tabs - Τελική Έκδοση) --- */
 .tabs {
   display: flex;
-  justify-content: flex-start; /* Στοίχιση αριστερά */
+  justify-content: space-between; /* Στοίχιση αριστερά */
   margin-bottom: 2rem;
+  width:65%;
   overflow-x: auto;
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
@@ -547,9 +548,9 @@ footer {
   background: none;
   border: none;
   /* Η γραμμή που κρατάει χώρο - ΑΟΡΑΤΗ */
-  border-bottom: 3px solid transparent;
+  border-bottom: 2px solid transparent;
   color: var(--text);
-  padding: 0.75rem 1.5rem; /* Ίδιο padding με main tabs */
+  padding: 0.05rem 0.5rem; /* Ίδιο padding με main tabs */
   cursor: pointer;
   font-size: 1.2rem; /* Ίδιο font-size με main tabs */
   transition: color 0.3s, border-color 0.3s; /* Προσοχή στο transition */

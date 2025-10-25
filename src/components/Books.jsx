@@ -194,7 +194,12 @@ function Books() {
   return (
     <div ref={sectionAnimationRef}>
       <h2 className="section-title" style={{ marginTop: '2rem' }}>Books</h2>
+      <div style={{
+      display: "flex",
+  	justifyContent: "center"
+      }}>
       <div className="tabs">{shelfTabs}</div>
+      </div>
       <div className="tab-content active">
         {/* Render content based on activeShelf from URL */}
         {booksGrid(activeShelf)}
