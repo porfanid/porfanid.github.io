@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
+// Import NavLink and useSearchParams
+import { NavLink, useSearchParams } from 'react-router-dom';
 
 // --- ΡΥΘΜΙΣΕΙΣ ---
 // 1. Ορίστε εδώ τα ράφια που θα εμφανίζονται ως tabs
@@ -19,7 +21,10 @@ const STATUS_SHELVES = ['read', 'currently-reading', 'to-read'];
 // --- ΤΕΛΟΣ ΡΥΘΜΙΣΕΩΝ ---
 
 function Books() {
-  const [active, setActive] = useState(SHELVES_TO_DISPLAY[0]?.id || '');
+  // Use searchParams to manage active tab state
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeShelf = searchParams.get('shelf') || SHELVES_TO_DISPLAY[0]?.id || '';
+
   // State για τα βιβλία που εμφανίζονται στα tabs
   const [shelfData, setShelfData] = useState({});
   // State για τα βιβλία που καθορίζουν το status
@@ -47,6 +52,11 @@ function Books() {
   });
 
   useEffect(() => {
+    // Set default shelf param if none exists
+    if (!searchParams.get('shelf') && SHELVES_TO_DISPLAY[0]) {
+      setSearchParams({ shelf: SHELVES_TO_DISPLAY[0].id }, { replace: true });
+    }
+
     async function fetchAllData() {
       setLoading(true);
       setError(null);
@@ -86,8 +96,10 @@ function Books() {
     }
 
     fetchAllData();
-    // eslint-disable--next-line react-hooks/exhaustive-deps
-  }, []);
+    // Use setSearchParams in dependency array if you want refetch on param change,
+    // but typically not needed unless fetchShelf depends on the activeShelf
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setSearchParams]); // Added setSearchParams dependency
 
   async function fetchShelf(shelf) {
     try {
@@ -95,7 +107,7 @@ function Books() {
       const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?shelf=${encodeURIComponent(shelf)}`;
       const res = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      
+
       const text = await res.text();
       const parser = new DOMParser();
       const xml = parser.parseFromString(text, 'application/xml');
@@ -126,20 +138,29 @@ function Books() {
     return null;
   };
 
+  // Use NavLink instead of button
   const shelfTabs = useMemo(() => SHELVES_TO_DISPLAY.map(s => (
-    <button
+    <NavLink
       key={s.id}
-      className={`tab-button ${active === s.id ? 'active' : ''}`}
-      onClick={() => setActive(s.id)}
+      // Link to the current path but change the query parameter
+      to={`?shelf=${s.id}`}
+      // Check if the current shelf in the URL matches this NavLink's shelf
+      className={`tab-button ${activeShelf === s.id ? 'active' : ''}`}
+      replace // Replace history entry instead of pushing
     >
       {s.label}
-    </button>
-  )), [active]);
+    </NavLink>
+  )), [activeShelf]); // Depend on activeShelf derived from URL
 
   const booksGrid = (shelfId) => {
     const books = shelfData[shelfId] || [];
-    if (!books.length && !loading) return <p>No books found on this shelf.</p>;
-    
+    if (!books.length && !loading && !error) return <p>No books found on this shelf.</p>;
+
+    // Display error specific to this shelf if data exists but is empty, or general error
+    if (error && (!shelfData[shelfId] || shelfData[shelfId].length === 0)) {
+        return <p>Could not load books for this shelf: {error}</p>;
+    }
+
     return (
       <div id="books-grid" className="books-grid" ref={booksGridAnimationRef}>
         {books.map((b, idx) => {
@@ -162,18 +183,20 @@ function Books() {
       </div>
     );
   };
-  
-  // Κεντρική οθόνη φόρτωσης και σφάλματος
-  if (loading) return <div className="loader"><div className="spinner" /></div>;
-  if (error) return <p>Could not load books because of {error}.</p>;
+
+  // Central loading and error display for initial fetch
+  if (loading && Object.keys(shelfData).length === 0) return <div className="loader"><div className="spinner" /></div>;
+ // Display general error only if no shelf data could be loaded at all
+  if (error && Object.keys(shelfData).length === 0 && !loading) return <p>Could not load any book data: {error}.</p>;
+
 
   return (
     <div ref={sectionAnimationRef}>
       <h2 className="section-title" style={{ marginTop: '2rem' }}>Books</h2>
       <div className="tabs">{shelfTabs}</div>
       <div className="tab-content active">
-        {/* Το περιεχόμενο αλλάζει δυναμικά με βάση το 'active' state */}
-        {booksGrid(active)}
+        {/* Render content based on activeShelf from URL */}
+        {booksGrid(activeShelf)}
       </div>
     </div>
   );

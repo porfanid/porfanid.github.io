@@ -23,20 +23,20 @@ body {
 
 header {
   /* Κάνουμε το background ημιδιαφανές */
-  background-color: rgba(45, 51, 59, 0.5); 
-  
+  background-color: rgba(45, 51, 59, 0.5);
+
   /* Προσθέτουμε το "frosted glass" εφέ */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px); /* Για συμβατότητα με Safari */
-  
+
   padding: 2rem 0;
   text-align: center;
-  
+
   /* Προσθέτουμε μια διακριτική γραμμή στο κάτω μέρος */
-  border-bottom: 1px solid rgba(173, 186, 199, 0.1); 
-  
+  border-bottom: 1px solid rgba(173, 186, 199, 0.1);
+
   /* Αφαιρούμε την παλιά σκιά που δεν χρειάζεται πλέον */
-  box-shadow: none; 
+  box-shadow: none;
 }
 
 /* Styling for the Chess Component */
@@ -219,15 +219,15 @@ header {
 .app-container {
   /* Ορίζουμε μια CSS μεταβλητή για την εικόνα */
   --bg-image: url('https://api.nasa.gov/assets/img/general/apod.jpg'); /* Μια default εικόνα */
-  
+
   min-height: 100vh;
   position: relative;
-  
+
   /* Το "μαγικό" σημείο: βάζουμε ένα σκούρο φίλτρο ΠΑΝΩ από την εικόνα */
-  background-image: 
-    linear-gradient(rgba(10, 20, 30, 0.7), rgba(10, 20, 30, 0.7)), 
+  background-image:
+    linear-gradient(rgba(10, 20, 30, 0.7), rgba(10, 20, 30, 0.7)),
     var(--bg-image);
-  
+
   background-size: cover;
   background-position: center;
   background-attachment: fixed; /* Κρατάει την εικόνα σταθερή καθώς κάνεις scroll */
@@ -351,22 +351,23 @@ header {
   color: var(--accent);
 }
 
+/* --- Κύρια Tabs (Resume, Projects, Books etc.) --- */
 .main-tabs-nav {
   display: flex;
   justify-content: center;
-  
+
   /* Εφαρμόζουμε το ίδιο ημιδιαφανές εφέ */
   background-color: rgba(45, 51, 59, 0.5);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  
+
   padding-top: 1rem;
-  
+
   /* Διατηρούμε τη συνοχή στο design */
   border-bottom: 1px solid rgba(173, 186, 199, 0.1);
 }
 
-/* Styling NavLink to look like the original button */
+/* Styling NavLink για τα κύρια tabs ώστε να μοιάζουν με κουμπιά */
 .main-tabs-nav a.main-tab-button {
   text-decoration: none; /* Αφαιρεί την υπογράμμιση */
   display: inline-block; /* Εξασφαλίζει σωστό padding */
@@ -380,38 +381,24 @@ header {
   padding: 0.75rem 1.5rem; /* Διατηρεί το padding */
   cursor: pointer; /* Διατηρεί τον cursor */
   font-size: 1.2rem; /* Διατηρεί το μέγεθος γραμματοσειράς */
-  transition: all 0.3s; /* Διατηρεί το transition */
+  transition: color 0.3s, border-color 0.3s; /* Ενημερωμένο transition */
   text-align: center; /* Κεντράρει το κείμενο (αν χρειαζόταν) */
 }
 
-/* Εξασφαλίζει ότι το active state λειτουργεί σωστά */
+/* Εξασφαλίζει ότι το active state λειτουργεί σωστά για τα κύρια tabs */
 .main-tabs-nav a.main-tab-button.active {
   color: var(--accent);
   border-bottom-color: var(--accent);
 }
 
-/* Προαιρετικό: Στυλ για hover/focus αν θέλεις */
+/* Στυλ για hover/focus για τα κύρια tabs */
 .main-tabs-nav a.main-tab-button:hover,
 .main-tabs-nav a.main-tab-button:focus {
   color: var(--accent); /* Αλλάζει χρώμα στο hover/focus */
   outline: none; /* Αφαιρεί το περίγραμμα στο focus */
 }
+/* --- Τέλος Κύριων Tabs --- */
 
-.main-tab-button {
-  background: none;
-  border: none;
-  color: var(--text);
-  padding: 0.75rem 1.5rem;
-  cursor: pointer;
-  font-size: 1.2rem;
-  border-bottom: 3px solid transparent;
-  transition: all 0.3s;
-}
-
-.main-tab-button.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-}
 
 .main-tab-content { display: none; }
 .main-tab-content.active { display: block; }
@@ -536,42 +523,53 @@ footer {
 
 .books-section { padding: 3rem 0; }
 
+/* --- Books Section Tabs (Πανομοιότυπο με Main Tabs - Τελική Έκδοση) --- */
 .tabs {
   display: flex;
-  justify-content: flex-start; /* Αλλάζει από center σε flex-start */
+  justify-content: flex-start; /* Στοίχιση αριστερά */
   margin-bottom: 2rem;
-  overflow-x: auto; /* Επιτρέπει το οριζόντιο scroll */
-  white-space: nowrap; /* Αποτρέπει την αναδίπλωση των κουμπιών */
-  -webkit-overflow-scrolling: touch; /* Για ομαλό scroll σε mobile */
-  padding-bottom: 10px; /* Προσθέτει χώρο για το scrollbar */
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 10px; /* Χώρος για scrollbar */
+  border-bottom: none; /* ΣΙΓΟΥΡΑ ΟΧΙ border στον container */
 }
 
-/* Βελτιωμένο στυλ για το scrollbar (προαιρετικό) */
-.tabs::-webkit-scrollbar {
-  height: 6px;
-}
+/* Scrollbar styling */
+.tabs::-webkit-scrollbar { height: 6px; }
+.tabs::-webkit-scrollbar-thumb { background-color: rgba(173, 186, 199, 0.2); border-radius: 3px; }
+.tabs::-webkit-scrollbar-thumb:hover { background-color: rgba(173, 186, 199, 0.4); }
 
-.tabs::-webkit-scrollbar-thumb {
-  background-color: rgba(173, 186, 199, 0.2);
-  border-radius: 3px;
-}
-
-.tabs::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(173, 186, 199, 0.4);
-}
-
-.tab-button {
+/* Βασικό στυλ για τα links των book tabs */
+.tabs a.tab-button {
+  text-decoration: none;
+  display: inline-block;
   background: none;
   border: none;
+  /* Η γραμμή που κρατάει χώρο - ΑΟΡΑΤΗ */
+  border-bottom: 3px solid transparent;
   color: var(--text);
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem; /* Ίδιο padding με main tabs */
   cursor: pointer;
-  font-size: 1.1rem;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s, color 0.3s;
+  font-size: 1.2rem; /* Ίδιο font-size με main tabs */
+  transition: color 0.3s, border-color 0.3s; /* Προσοχή στο transition */
+  text-align: center;
 }
 
-.tab-button.active { color: var(--accent); border-bottom-color: var(--accent); }
+/* Hover/Focus state - Αλλάζει ΜΟΝΟ το χρώμα του κειμένου */
+.tabs a.tab-button:hover,
+.tabs a.tab-button:focus {
+  color: var(--accent);
+  outline: none;
+  /* ΔΕΝ αλλάζει το border-color εδώ */
+}
+
+/* Active state - Εδώ ΜΟΝΟ αλλάζει το χρώμα της γραμμής */
+.tabs a.tab-button.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent); /* Η γραμμή γίνεται ορατή (μπλε) */
+}
+/* --- Τέλος Books Section Tabs --- */
 
 .tab-content { display: none; }
 .tab-content.active { display: block; }
