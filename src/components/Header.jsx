@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 import anime from 'animejs/lib/anime.es.js'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
@@ -102,4 +102,4 @@ function Header({ username }) {
   )
 }
 
-export default Header
+export default memo(Header);
