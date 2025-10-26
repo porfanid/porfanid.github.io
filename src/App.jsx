@@ -49,9 +49,12 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    let isMounted = true;
+
     fetch(NASA_APOD_ENDPOINT)
       .then(res => res.json())
       .then(data => {
+        if (!isMounted) return;
         setApodTitle(data.title || 'Astronomy Picture of the Day');
         if (data.media_type === 'image') {
           setBackgroundImage(data.hdurl || data.url);
@@ -64,6 +67,7 @@ function App() {
         }
       })
       .catch(error => {
+        if (!isMounted) return;
         console.error("Could not fetch NASA APOD:", error);
         setBackgroundImage('https://api.nasa.gov/assets/img/general/apod.jpg');
         setApodTitle('Astronomy Picture of the Day');
@@ -83,6 +87,7 @@ function App() {
             const currentGames = gamesData.games; // Extract games array
 
             if (currentGames && currentGames.length > 0) {
+                if (!isMounted) return;
                 setChessGames(currentGames); // Store the actual games
                 setTabs(prevTabs => {
                   if (prevTabs.some(tab => tab.id === 'chess')) return prevTabs;
@@ -92,17 +97,19 @@ function App() {
                   return newTabs;
                 });
             } else {
-                 setChessGames([]);
+                if (!isMounted) return;
+                setChessGames([]);
             }
         } else {
-             setChessGames([]);
+            if (!isMounted) return;
+            setChessGames([]);
         }
       } catch (error) {
-           console.error("Could not fetch Chess.com games:", error);
-           setChessGames([]);
-       }
+        if (!isMounted) return;
+        console.error("Could not fetch Chess.com games:", error);
+        setChessGames([]);
+      }
     }
-    fetchChessGames();
 
     // Fetch Projects
     async function fetchProjects() {
@@ -117,6 +124,8 @@ function App() {
         }
         const allRepos = await resp.json();
 
+        if (!isMounted) return;
+
         const sortedByStars = [...allRepos].sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0));
         const favorites = sortedByStars.slice(0, 6);
         setPinnedRepos(favorites);
@@ -125,12 +134,13 @@ function App() {
         const others = allRepos.filter(r => !favoriteNames.has(r.name));
         setOtherRepos(others);
       } catch (e) {
+        if (!isMounted) return;
         setProjectsError(e.message);
       } finally {
+        if (!isMounted) return;
         setProjectsLoading(false);
       }
     }
-    fetchProjects();
 
     // Fetch Books
     async function fetchBooks() {
@@ -147,6 +157,8 @@ function App() {
         const promises = uniqueShelfIds.map(id => fetchShelf(id));
         const results = await Promise.all(promises);
 
+        if (!isMounted) return;
+
         const newShelfData = {};
         const newStatusBooks = {};
 
@@ -162,8 +174,10 @@ function App() {
         setShelfData(newShelfData);
         setStatusBooks(newStatusBooks);
       } catch (e) {
+        if (!isMounted) return;
         setBooksError(e.message || String(e));
       } finally {
+        if (!isMounted) return;
         setBooksLoading(false);
       }
     }
@@ -192,7 +206,16 @@ function App() {
       }
     }
 
-    fetchBooks();
+    // Run independent fetches in parallel
+    Promise.all([
+      fetchChessGames(),
+      fetchProjects(),
+      fetchBooks()
+    ]);
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   return (
