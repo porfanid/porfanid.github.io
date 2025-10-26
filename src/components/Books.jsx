@@ -1,37 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
-// Import NavLink and useSearchParams
 import { NavLink, useSearchParams } from 'react-router-dom';
 
-// --- ΡΥΘΜΙΣΕΙΣ ---
-// 1. Ορίστε εδώ τα ράφια που θα εμφανίζονται ως tabs
-const SHELVES_TO_DISPLAY = [
-  { id: 'favorites', label: 'Favorites' },
-  { id: 'comp-sci', label: 'Computer Science' },
-  { id: 'med', label: 'Medicine' },
-  { id: 'mystery', label: 'Mystery' },
-  { id: 'sci-fi-fantacy', label: 'Sci-FI/Fantacy' },
-  // { id: 'philosophy', label: 'Philosophy' },
-  // Προσθέστε κι άλλα εδώ
-];
-
-// 2. Αυτά είναι τα ράφια που ορίζουν το status ενός βιβλίου
-const STATUS_SHELVES = ['read', 'currently-reading', 'to-read'];
-// --- ΤΕΛΟΣ ΡΥΘΜΙΣΕΩΝ ---
-
-function Books() {
-  // Use searchParams to manage active tab state
+function Books({ loading, error, shelfData, statusBooks, shelvesToDisplay, statusShelves }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const activeShelf = searchParams.get('shelf') || SHELVES_TO_DISPLAY[0]?.id || '';
-
-  // State για τα βιβλία που εμφανίζονται στα tabs
-  const [shelfData, setShelfData] = useState({});
-  // State για τα βιβλία που καθορίζουν το status
-  const [statusBooks, setStatusBooks] = useState({});
-
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const activeShelf = searchParams.get('shelf') || shelvesToDisplay[0]?.id || '';
 
   // Animations (παραμένουν ίδια)
   const sectionAnimationRef = useScrollAnimation({
@@ -53,77 +27,10 @@ function Books() {
 
   useEffect(() => {
     // Set default shelf param if none exists
-    if (!searchParams.get('shelf') && SHELVES_TO_DISPLAY[0]) {
-      setSearchParams({ shelf: SHELVES_TO_DISPLAY[0].id }, { replace: true });
+    if (!searchParams.get('shelf') && shelvesToDisplay[0]) {
+      setSearchParams({ shelf: shelvesToDisplay[0].id }, { replace: true });
     }
-
-    async function fetchAllData() {
-      setLoading(true);
-      setError(null);
-
-      // Ενώνουμε όλα τα ράφια που πρέπει να "κατεβάσουμε" σε μία λίστα
-      const shelvesToFetchIds = [
-        ...SHELVES_TO_DISPLAY.map(s => s.id),
-        ...STATUS_SHELVES
-      ];
-      const uniqueShelfIds = [...new Set(shelvesToFetchIds)]; // Αποφυγή διπλότυπων
-
-      try {
-        const promises = uniqueShelfIds.map(id => fetchShelf(id));
-        const results = await Promise.all(promises);
-
-        const newShelfData = {};
-        const newStatusBooks = {};
-
-        // Διαχωρίζουμε τα αποτελέσματα στα δύο states
-        results.forEach(({ shelf, books }) => {
-          if (STATUS_SHELVES.includes(shelf)) {
-            newStatusBooks[shelf] = books;
-          }
-          if (SHELVES_TO_DISPLAY.some(s => s.id === shelf)) {
-            newShelfData[shelf] = books;
-          }
-        });
-
-        setShelfData(newShelfData);
-        setStatusBooks(newStatusBooks);
-
-      } catch (e) {
-        setError(e.message || String(e));
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchAllData();
-    // Use setSearchParams in dependency array if you want refetch on param change,
-    // but typically not needed unless fetchShelf depends on the activeShelf
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setSearchParams]); // Added setSearchParams dependency
-
-  async function fetchShelf(shelf) {
-    try {
-      const proxyUrl = 'https://corsproxy.io/?';
-      const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?shelf=${encodeURIComponent(shelf)}`;
-      const res = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-      const text = await res.text();
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(text, 'application/xml');
-      const items = Array.from(xml.querySelectorAll('item'));
-      const books = items.map(item => ({
-        id: item.querySelector('link')?.textContent || '#', // Χρησιμοποιούμε το link ως ID
-        title: item.querySelector('title')?.textContent || 'Untitled',
-        author: item.querySelector('author_name')?.textContent || 'Unknown',
-        link: item.querySelector('link')?.textContent || '#',
-        image: item.querySelector('book_large_image_url')?.textContent || '',
-      }));
-      return { shelf, books };
-    } catch (e) {
-      throw new Error(`Failed to load "${shelf}": ${e.message}`);
-    }
-  }
+  }, [searchParams, setSearchParams, shelvesToDisplay]);
 
   const getBookStatus = (book) => {
     if (statusBooks.read?.some(b => b.id === book.id)) {
@@ -139,7 +46,7 @@ function Books() {
   };
 
   // Use NavLink instead of button
-  const shelfTabs = useMemo(() => SHELVES_TO_DISPLAY.map(s => (
+  const shelfTabs = useMemo(() => shelvesToDisplay.map(s => (
     <NavLink
       key={s.id}
       // Link to the current path but change the query parameter
