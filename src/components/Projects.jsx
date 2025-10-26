@@ -1,18 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import anime from 'animejs/lib/anime.es.js';
-import ProjectCard from './ProjectCard'; // Εισάγουμε το component της κάρτας
+import ProjectCard from './ProjectCard';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
-// Δημόσια REST endpoints του GitHub (χωρίς token)
-const REST_REPOS_ENDPOINT = (username) => `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
-
-function Projects() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [pinnedRepos, setPinnedRepos] = useState([]);
-  const [otherRepos, setOtherRepos] = useState([]);
-
-  const username = 'porfanid';
+function Projects({ loading, error, pinnedRepos, otherRepos }) {
 
   // Scroll-activated animations
   const sectionAnimationRef = useScrollAnimation({
@@ -40,45 +31,6 @@ function Projects() {
     duration: 750,
     easing: 'easeOutExpo',
   });
-
-  useEffect(() => {
-    let isMounted = true;
-
-    async function fetchProjects() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        // 1) Φέρνουμε όλα τα public repos μέσω REST (χωρίς token)
-        const resp = await fetch(REST_REPOS_ENDPOINT(username));
-        if (!resp.ok) {
-          throw new Error(`GitHub API Error: ${resp.status} ${resp.statusText}`);
-        }
-        const allRepos = await resp.json();
-
-        if (!isMounted) return;
-
-        // 2) Επιλέγουμε "favorite" ως τα 6 με τα περισσότερα stars (fallback αντί για GraphQL pinned)
-        const sortedByStars = [...allRepos].sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0));
-        const favorites = sortedByStars.slice(0, 6);
-        setPinnedRepos(favorites);
-
-        // 3) Τα υπόλοιπα (εξαιρούμε τα favorites με βάση το όνομα)
-        const favoriteNames = new Set(favorites.map(r => r.name));
-        const others = allRepos.filter(r => !favoriteNames.has(r.name));
-        setOtherRepos(others);
-      } catch (e) {
-        if (!isMounted) return;
-        setError(e.message);
-      } finally {
-        if (!isMounted) return;
-        setLoading(false);
-      }
-    }
-
-    fetchProjects();
-    return () => { isMounted = false; };
-  }, [username]);
   
   // Helper function για να περάσουμε τα σωστά δεδομένα στην κάρτα
   const normalizeRepoData = (repo) => ({

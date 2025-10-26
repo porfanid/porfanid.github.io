@@ -10,11 +10,34 @@ import Footer from './components/Footer';
 
 const NASA_APOD_ENDPOINT = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true`;
 const CHESS_ARCHIVES_URL = `https://api.chess.com/pub/player/porfanid/games/`;
+const REST_REPOS_ENDPOINT = (username) => `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
+
+// Books configuration
+const SHELVES_TO_DISPLAY = [
+  { id: 'favorites', label: 'Favorites' },
+  { id: 'comp-sci', label: 'Computer Science' },
+  { id: 'med', label: 'Medicine' },
+  { id: 'mystery', label: 'Mystery' },
+  { id: 'sci-fi-fantacy', label: 'Sci-FI/Fantacy' },
+];
+const STATUS_SHELVES = ['read', 'currently-reading', 'to-read'];
 
 function App() {
   const [backgroundImage, setBackgroundImage] = useState('');
   const [apodTitle, setApodTitle] = useState('');
   const [chessGames, setChessGames] = useState(null);
+  
+  // Projects state
+  const [projectsLoading, setProjectsLoading] = useState(true);
+  const [projectsError, setProjectsError] = useState(null);
+  const [pinnedRepos, setPinnedRepos] = useState([]);
+  const [otherRepos, setOtherRepos] = useState([]);
+  
+  // Books state
+  const [booksLoading, setBooksLoading] = useState(true);
+  const [booksError, setBooksError] = useState(null);
+  const [shelfData, setShelfData] = useState({});
+  const [statusBooks, setStatusBooks] = useState({});
 
   const initialTabs = [
       { id: 'resume', label: 'Resume', path: '/' },
@@ -80,6 +103,96 @@ function App() {
        }
     }
     fetchChessGames();
+
+    // Fetch Projects
+    async function fetchProjects() {
+      setProjectsLoading(true);
+      setProjectsError(null);
+      const username = 'porfanid';
+
+      try {
+        const resp = await fetch(REST_REPOS_ENDPOINT(username));
+        if (!resp.ok) {
+          throw new Error(`GitHub API Error: ${resp.status} ${resp.statusText}`);
+        }
+        const allRepos = await resp.json();
+
+        const sortedByStars = [...allRepos].sort((a, b) => (b.stargazers_count || 0) - (a.stargazers_count || 0));
+        const favorites = sortedByStars.slice(0, 6);
+        setPinnedRepos(favorites);
+
+        const favoriteNames = new Set(favorites.map(r => r.name));
+        const others = allRepos.filter(r => !favoriteNames.has(r.name));
+        setOtherRepos(others);
+      } catch (e) {
+        setProjectsError(e.message);
+      } finally {
+        setProjectsLoading(false);
+      }
+    }
+    fetchProjects();
+
+    // Fetch Books
+    async function fetchBooks() {
+      setBooksLoading(true);
+      setBooksError(null);
+
+      const shelvesToFetchIds = [
+        ...SHELVES_TO_DISPLAY.map(s => s.id),
+        ...STATUS_SHELVES
+      ];
+      const uniqueShelfIds = [...new Set(shelvesToFetchIds)];
+
+      try {
+        const promises = uniqueShelfIds.map(id => fetchShelf(id));
+        const results = await Promise.all(promises);
+
+        const newShelfData = {};
+        const newStatusBooks = {};
+
+        results.forEach(({ shelf, books }) => {
+          if (STATUS_SHELVES.includes(shelf)) {
+            newStatusBooks[shelf] = books;
+          }
+          if (SHELVES_TO_DISPLAY.some(s => s.id === shelf)) {
+            newShelfData[shelf] = books;
+          }
+        });
+
+        setShelfData(newShelfData);
+        setStatusBooks(newStatusBooks);
+      } catch (e) {
+        setBooksError(e.message || String(e));
+      } finally {
+        setBooksLoading(false);
+      }
+    }
+
+    async function fetchShelf(shelf) {
+      try {
+        const proxyUrl = 'https://corsproxy.io/?';
+        const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?shelf=${encodeURIComponent(shelf)}`;
+        const res = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const text = await res.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(text, 'application/xml');
+        const items = Array.from(xml.querySelectorAll('item'));
+        const books = items.map(item => ({
+          id: item.querySelector('link')?.textContent || '#',
+          title: item.querySelector('title')?.textContent || 'Untitled',
+          author: item.querySelector('author_name')?.textContent || 'Unknown',
+          link: item.querySelector('link')?.textContent || '#',
+          image: item.querySelector('book_large_image_url')?.textContent || '',
+        }));
+        return { shelf, books };
+      } catch (e) {
+        throw new Error(`Failed to load "${shelf}": ${e.message}`);
+      }
+    }
+
+    fetchBooks();
   }, []);
 
   return (
@@ -97,8 +210,30 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Resume />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/books" element={<Books />} />
+            <Route 
+              path="/projects" 
+              element={
+                <Projects 
+                  loading={projectsLoading}
+                  error={projectsError}
+                  pinnedRepos={pinnedRepos}
+                  otherRepos={otherRepos}
+                />
+              } 
+            />
+            <Route 
+              path="/books" 
+              element={
+                <Books 
+                  loading={booksLoading}
+                  error={booksError}
+                  shelfData={shelfData}
+                  statusBooks={statusBooks}
+                  shelvesToDisplay={SHELVES_TO_DISPLAY}
+                  statusShelves={STATUS_SHELVES}
+                />
+              } 
+            />
             {chessGames && chessGames.length > 0 && (
               <Route path="/chess" element={<Chess games={chessGames} />} />
             )}
