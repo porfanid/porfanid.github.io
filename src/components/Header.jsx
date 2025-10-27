@@ -94,7 +94,7 @@ function Header({ username }) {
     <i className="fas fa-file-arrow-down"></i> {/* Χρησιμοποιούμε Font Awesome */}
   </a>
   
-  <a className="social-link" href="https://keys.openpgp.org/vks/v1/by-fingerprint/7F4A64C4D77ADF08A616BEF6666855A91B3897F4" target="_blank" title="PGP Key"><i class="fas fa-key"></i></a>
+  <a className="social-link" href="https://keys.openpgp.org/vks/v1/by-fingerprint/7F4A64C4D77ADF08A616BEF6666855A91B3897F4" target="_blank" title="PGP Key"><i className="fas fa-key"></i></a>
           </div>
         </div>
       </div>

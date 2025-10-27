@@ -47,6 +47,10 @@ function App() {
   const [tabs, setTabs] = useState(initialTabs);
 
   const location = useLocation();
+  // CV data
+  const [cvData, setCvData] = useState({ education: [], workExperience: [] });
+  const [cvLoading, setCvLoading] = useState(true);
+  const [cvError, setCvError] = useState(null);
 
   useEffect(() => {
     let isMounted = true;
@@ -182,35 +186,151 @@ function App() {
       }
     }
 
-    async function fetchShelf(shelf) {
-      try {
-        const proxyUrl = 'https://corsproxy.io/?';
-        const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?shelf=${encodeURIComponent(shelf)}`;
-        const res = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+async function fetchShelf(shelf) {
+  try {
+    const proxyUrl = 'https://corsproxy.io/?';
+    const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?shelf=${encodeURIComponent(shelf)}`;
+    const res = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        const text = await res.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(text, 'application/xml');
-        const items = Array.from(xml.querySelectorAll('item'));
-        const books = items.map(item => ({
-          id: item.querySelector('link')?.textContent || '#',
-          title: item.querySelector('title')?.textContent || 'Untitled',
-          author: item.querySelector('author_name')?.textContent || 'Unknown',
-          link: item.querySelector('link')?.textContent || '#',
-          image: item.querySelector('book_large_image_url')?.textContent || '',
-        }));
-        return { shelf, books };
-      } catch (e) {
-        throw new Error(`Failed to load "${shelf}": ${e.message}`);
+    const text = await res.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, 'application/xml');
+    const items = Array.from(xml.querySelectorAll('item'));
+
+    const books = items.map(item => {
+      // --- ΕΔΩ ΕΙΝΑΙ Η ΔΙΟΡΘΩΣΗ ---
+      // 1. Παίρνουμε το περιεχόμενο του description που περιέχει το σωστό link.
+      const descriptionHTML = item.querySelector('description')?.textContent || '';
+
+      // 2. Χρησιμοποιούμε έναν δεύτερο parser για να διαβάσουμε αυτό το HTML string.
+      const htmlParser = new DOMParser();
+      const doc = htmlParser.parseFromString(descriptionHTML, 'text/html');
+      
+      // 3. Βρίσκουμε το <a> tag και παίρνουμε το href του.
+      const anchorTag = doc.querySelector('a');
+      const correctLink = anchorTag 
+        ? anchorTag.getAttribute('href') 
+        : item.querySelector('link')?.textContent || '#'; // Fallback στο αρχικό link αν κάτι πάει στραβά.
+      
+      // 4. Επιστρέφουμε το αντικείμενο με το σωστό link.
+      return {
+        id: item.querySelector('link')?.textContent || '#', // Κρατάμε το μοναδικό link του review ως id
+        title: item.querySelector('title')?.textContent || 'Untitled',
+        author: item.querySelector('author_name')?.textContent || 'Unknown',
+        link: correctLink, // Χρησιμοποιούμε το διορθωμένο link
+        image: item.querySelector('book_large_image_url')?.textContent || '',
+      };
+    });
+
+    return { shelf, books };
+  } catch (e) {
+    throw new Error(`Failed to load "${shelf}": ${e.message}`);
+  }
+}
+    async function fetchCvData() {
+    if (!isMounted) return;
+    setCvLoading(true);
+    setCvError(null);
+    try {
+      // Fetch the PDF file from the public folder
+      const pdfResponse = await fetch('/CV_EN.pdf');
+      if (!pdfResponse.ok) {
+        throw new Error(`Failed to fetch CV PDF: ${pdfResponse.statusText}`);
       }
+      const pdfBlob = await pdfResponse.blob();
+
+      // --- Use adapted Europass API functions ---
+      // Step 1: Extract XML from PDF (replace with your adapted function call)
+      // const xmlData = await extractXmlFromPdf(pdfBlob);
+
+      // Step 2: Convert XML to JSON (replace with your adapted function call)
+      // const jsonData = await convertXmlToJson(xmlData);
+
+      // --- TEMPORARY Placeholder for JSON data ---
+      // You MUST replace this with the actual JSON structure returned by the Europass API
+      const jsonData = { /* Structure from Europass API */
+        SkillsPassport: {
+          LearnerInfo: { /* ... */ },
+          WorkExperience: [
+            { /* ... work experience object 1 ... */
+              Period: { From: '2023-12-04', To: null /* Current */ }, // Example structure
+              Position: { Label: 'Application engineer' },
+              Employer: { Name: 'Democritus University of Thrace, Greece' },
+              Description: 'Engineered and implemented a web application...'
+            },
+             { /* ... work experience object 2 ... */
+              Period: { From: '2025-08-01', To: '2025-09-30' },
+              Position: { Label: 'Embedded systems software developer' },
+              Employer: { Name: 'Lamda Electronics' },
+              Description: 'Developed and programmed an IoT system...'
+            },
+            { /* ... work experience object 3 ... */
+              Period: { From: '2020-03-05', To: '2020-08-31'},
+              Position: { Label: 'Web application developer' },
+              Employer: { Name: 'Democritus University of Thrace, Greece' },
+              Description: 'Developed and deployed a full-stack web application...'
+            }
+          ],
+          Education: [
+            { /* ... education object 1 ... */
+              Period: { From: '2017-09-01', To: null /* Present */ },
+              Title: 'Computer Science Engineer',
+              Organisation: { Name: 'University of Ioannina, Greece' }
+            },
+             { /* ... education object 2 ... */
+              Period: { To: '2025-06-30' }, // Might only have 'To' date
+              Title: 'BCI & Neurotechnology Masterclass',
+              Organisation: { Name: 'g.tec medical engineering GmbH' }
+            },
+             { /* ... education object 3 ... */
+              Period: { To: '2024-12-01' },
+              Title: 'Employability Skills Programme',
+              Organisation: { Name: "King's Trust International" }
+            }
+          ]
+        }
+      };
+      // --- End Placeholder ---
+      
+      // Step 3: Extract relevant data (adjust paths based on actual JSON)
+      const educationItems = jsonData.SkillsPassport?.Education?.map(edu => ({
+         // Safely access potentially missing dates
+         date: `${edu.Period?.From ? edu.Period.From.substring(0, 4) : ''}${edu.Period?.To && !edu.Period?.From ? edu.Period.To.substring(0, 7).replace('-', ' ') : ''}${edu.Period?.From && edu.Period?.To ? ' - ' + edu.Period.To.substring(0, 4) : ''}${edu.Period?.From && !edu.Period?.To ? ' - Present' : ''}`, // Construct date string carefully
+        title: edu.Title,
+        organisation: edu.Organisation?.Name
+      })) || [];
+
+
+      const workItems = jsonData.SkillsPassport?.WorkExperience?.map(work => ({
+        date: `${work.Period?.From ? work.Period.From.substring(0, 7).replace('-', ' ') : ''}${work.Period?.To ? ' - ' + work.Period.To.substring(0, 7).replace('-', ' ') : ' - Current'}`,
+        title: work.Position?.Label,
+        organisation: work.Employer?.Name,
+        description: work.Description
+      })) || [];
+
+
+      if (!isMounted) return;
+      setCvData({ education: educationItems, workExperience: workItems });
+
+    } catch (error) {
+      console.error("Failed to process CV:", error);
+      if (!isMounted) return;
+      setCvError(error.message);
+      // Optionally set default/fallback data if fetch fails
+      setCvData({ education: [], workExperience: [] });
+    } finally {
+      if (!isMounted) return;
+      setCvLoading(false);
     }
+  }
 
     // Run independent fetches in parallel
     Promise.all([
       fetchChessGames(),
       fetchProjects(),
-      fetchBooks()
+      fetchBooks(),
+      fetchCvData()
     ]);
 
     return () => {
@@ -232,7 +352,14 @@ function App() {
       <div className="main-content-wrapper">
         <main>
           <Routes>
-            <Route path="/" element={<Resume />} />
+            <Route path="/" element={
+            <Resume
+      loading={cvLoading}
+      error={cvError}
+      education={cvData.education}
+      workExperience={cvData.workExperience}
+    />
+            } />
             <Route 
               path="/projects" 
               element={

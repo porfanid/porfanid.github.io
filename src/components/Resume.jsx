@@ -1,71 +1,63 @@
 import React from 'react';
-import { useScrollAnimation } from '../hooks/useScrollAnimation'; // Προαιρετικό animation
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
-function Resume() {
-  // Προαιρετικό: Animation για τα timeline items
-  const resumeRef = useScrollAnimation({
-    targets: '.timeline-item',
-    translateX: [-30, 0], // Animation από αριστερά
-    opacity: [0, 1],
-    delay: (el, i) => i * 100,
-    duration: 800,
-    easing: 'easeOutExpo',
-  });
+// Accept props: loading, error, education, workExperience
+function Resume({ loading, error, education, workExperience }) {
+
+  const resumeRef = useScrollAnimation({ /* ... animation config ... */ });
+
+  // Handle loading state
+  if (loading) {
+    return <div className="loader"><div className="spinner" /></div>;
+  }
+
+  // Handle error state
+  if (error) {
+    return <p style={{ textAlign: 'center', color: 'red' }}>Could not load resume data: {error}</p>;
+  }
 
   return (
-    // Χρησιμοποιούμε container για συνέπεια
-    <div className="container resume-section" ref={resumeRef}> 
+    <div className="container resume-section" ref={resumeRef}>
       <h2 className="section-title">Resume</h2>
-      <div className="resume-grid"> {/* Χρησιμοποιούμε grid αντί για row/col */}
-        
-        {/* Education & Certificates */}
+      <div className="resume-grid">
+
+        {/* Education & Certificates - Render Dynamically */}
         <div className="resume-column">
           <h3 className="resume-subtitle">Education & Certificates</h3>
           <div className="timeline">
-            <div className="timeline-item">
-              <span className="timeline-date">2017 - Present</span>
-              <h5>Computer Science Engineer</h5>
-              <p><em>University of Ioannina, Greece</em></p>
-            </div>
-            <div className="timeline-item">
-              <span className="timeline-date">June 2025</span>
-              <h5>BCI & Neurotechnology Masterclass</h5>
-              <p><em>g.tec medical engineering GmbH</em></p>
-            </div>
-            <div className="timeline-item">
-              <span className="timeline-date">Dec 2024</span>
-              <h5>Employability Skills Programme</h5>
-              <p><em>King's Trust International</em></p>
-            </div>
-             {/* Πρόσθεσε κι άλλα αν χρειάζεται */}
+            {education.length > 0 ? (
+              education.map((item, index) => (
+                <div className="timeline-item" key={`edu-${index}`}>
+                  <span className="timeline-date">{item.date}</span>
+                  <h5>{item.title}</h5>
+                  {item.organisation && <p><em>{item.organisation}</em></p>}
+                </div>
+              ))
+            ) : (
+              <p>No education information available.</p>
+            )}
           </div>
         </div>
 
-        {/* Work Experience */}
+        {/* Work Experience - Render Dynamically */}
         <div className="resume-column">
           <h3 className="resume-subtitle">Work Experience</h3>
           <div className="timeline">
-            <div className="timeline-item">
-              <span className="timeline-date">Dec 2023 - Current</span>
-              <h5>Application engineer</h5>
-              <p><em>Democritus University of Thrace, Greece</em></p>
-              <p className="timeline-description">Engineered and implemented a web application for digital near and far vision measurements. Produces well-structured medical reports to support clinical decision-making.</p>
-            </div>
-            <div className="timeline-item">
-              <span className="timeline-date">Aug 2025 - Sep 2025</span>
-              <h5>Embedded systems software developer</h5>
-              <p><em>Lamda Electronics</em></p>
-              <p className="timeline-description">Developed and programmed an IoT system with multiple sensors that use MODBUS-RTU protocol. Data are stored in a sql database and are available through a web page and a json api.</p>
-            </div>
-            <div className="timeline-item">
-              <span className="timeline-date">Mar 2020 - Aug 2020</span>
-              <h5>Web application developer</h5>
-              <p><em>Democritus University of Thrace, Greece</em></p>
-              <p className="timeline-description">Developed and deployed a full-stack web application to digitize and streamline the application process for the "Acquisition of Academic Teaching Experience" program.</p>
-            </div>
-             {/* Πρόσθεσε κι άλλα αν χρειάζεται */}
+            {workExperience.length > 0 ? (
+              workExperience.map((item, index) => (
+                <div className="timeline-item" key={`work-${index}`}>
+                  <span className="timeline-date">{item.date}</span>
+                  <h5>{item.title}</h5>
+                  {item.organisation && <p><em>{item.organisation}</em></p>}
+                  {item.description && <p className="timeline-description">{item.description}</p>}
+                </div>
+              ))
+            ) : (
+              <p>No work experience available.</p>
+            )}
           </div>
         </div>
+
       </div>
     </div>
   );
