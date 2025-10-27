@@ -229,101 +229,120 @@ async function fetchShelf(shelf) {
   }
 }
     async function fetchCvData() {
-    if (!isMounted) return;
-    setCvLoading(true);
-    setCvError(null);
-    try {
-      // Fetch the PDF file from the public folder
-      const pdfResponse = await fetch('/CV_EN.pdf');
-      if (!pdfResponse.ok) {
-        throw new Error(`Failed to fetch CV PDF: ${pdfResponse.statusText}`);
-      }
-      const pdfBlob = await pdfResponse.blob();
+      if (!isMounted) return;
+      setCvLoading(true);
+      setCvError(null);
 
-      // --- Use adapted Europass API functions ---
-      // Step 1: Extract XML from PDF (replace with your adapted function call)
-      // const xmlData = await extractXmlFromPdf(pdfBlob);
+      // --- ΛΟΓΙΚΗ ΜΕ ΟΛΟΚΛΗΡΟ ΤΟ ΠΡΟΦΙΛ ORCID ---
 
-      // Step 2: Convert XML to JSON (replace with your adapted function call)
-      // const jsonData = await convertXmlToJson(xmlData);
-
-      // --- TEMPORARY Placeholder for JSON data ---
-      // You MUST replace this with the actual JSON structure returned by the Europass API
-      const jsonData = { /* Structure from Europass API */
-        SkillsPassport: {
-          LearnerInfo: { /* ... */ },
-          WorkExperience: [
-            { /* ... work experience object 1 ... */
-              Period: { From: '2023-12-04', To: null /* Current */ }, // Example structure
-              Position: { Label: 'Application engineer' },
-              Employer: { Name: 'Democritus University of Thrace, Greece' },
-              Description: 'Engineered and implemented a web application...'
-            },
-             { /* ... work experience object 2 ... */
-              Period: { From: '2025-08-01', To: '2025-09-30' },
-              Position: { Label: 'Embedded systems software developer' },
-              Employer: { Name: 'Lamda Electronics' },
-              Description: 'Developed and programmed an IoT system...'
-            },
-            { /* ... work experience object 3 ... */
-              Period: { From: '2020-03-05', To: '2020-08-31'},
-              Position: { Label: 'Web application developer' },
-              Employer: { Name: 'Democritus University of Thrace, Greece' },
-              Description: 'Developed and deployed a full-stack web application...'
-            }
-          ],
-          Education: [
-            { /* ... education object 1 ... */
-              Period: { From: '2017-09-01', To: null /* Present */ },
-              Title: 'Computer Science Engineer',
-              Organisation: { Name: 'University of Ioannina, Greece' }
-            },
-             { /* ... education object 2 ... */
-              Period: { To: '2025-06-30' }, // Might only have 'To' date
-              Title: 'BCI & Neurotechnology Masterclass',
-              Organisation: { Name: 'g.tec medical engineering GmbH' }
-            },
-             { /* ... education object 3 ... */
-              Period: { To: '2024-12-01' },
-              Title: 'Employability Skills Programme',
-              Organisation: { Name: "King's Trust International" }
-            }
-          ]
-        }
-      };
-      // --- End Placeholder ---
+      // 1. Βεβαιώσου ότι έχεις βάλει το σωστό ORCID iD.
+      const orcidId = '0000-0002-7891-1977'; // Το iD από το παράδειγμά σου.
       
-      // Step 3: Extract relevant data (adjust paths based on actual JSON)
-      const educationItems = jsonData.SkillsPassport?.Education?.map(edu => ({
-         // Safely access potentially missing dates
-         date: `${edu.Period?.From ? edu.Period.From.substring(0, 4) : ''}${edu.Period?.To && !edu.Period?.From ? edu.Period.To.substring(0, 7).replace('-', ' ') : ''}${edu.Period?.From && edu.Period?.To ? ' - ' + edu.Period.To.substring(0, 4) : ''}${edu.Period?.From && !edu.Period?.To ? ' - Present' : ''}`, // Construct date string carefully
-        title: edu.Title,
-        organisation: edu.Organisation?.Name
-      })) || [];
+      // Το URL στοχεύει σε ολόκληρο το προφίλ.
+      const apiUrl = `https://pub.orcid.org/v3.0/${orcidId}`;
 
+      try {
+        const response = await fetch(apiUrl, {
+          headers: {
+            'Accept': 'application/json' // Ζητάμε πάντα JSON για ευκολία!
+          }
+        });
 
-      const workItems = jsonData.SkillsPassport?.WorkExperience?.map(work => ({
-        date: `${work.Period?.From ? work.Period.From.substring(0, 7).replace('-', ' ') : ''}${work.Period?.To ? ' - ' + work.Period.To.substring(0, 7).replace('-', ' ') : ' - Current'}`,
-        title: work.Position?.Label,
-        organisation: work.Employer?.Name,
-        description: work.Description
-      })) || [];
+        if (!response.ok) {
+          throw new Error(`ORCID API Error: ${response.status} ${response.statusText}`);
+        }
 
+        const data = await response.json();
+        
+        // --- 2. ΕΞΑΓΩΓΗ ΕΚΠΑΙΔΕΥΣΗΣ (EDUCATION) ---
+        const educations = data["activities-summary"]?.educations?.['affiliation-group'] || [];
+        const educationItems = educations.map(eduGroup => {
+          const summary = eduGroup.summaries[0]['education-summary']; // Παίρνουμε το πρώτο summary από το group
+          const startDate = summary['start-date'];
+          const endDate = summary['end-date'];
+          
+          // Φτιάχνουμε τη συμβολοσειρά της ημερομηνίας
+          const startYear = startDate?.year?.value || '';
+          const endYear = endDate?.year?.value || '';
+          let dateString = startYear;
+          if (endYear && endYear !== startYear) {
+            dateString += ` - ${endYear}`;
+          } else if (startYear && !endYear) {
+             dateString += ' - Present';
+          }
 
-      if (!isMounted) return;
-      setCvData({ education: educationItems, workExperience: workItems });
+          return {
+            date: dateString,
+            title: summary["role-title"] || 'Studies', // Το ORCID δεν έχει πάντα "τίτλο" για την εκπαίδευση
+            organisation: summary.organization?.name || 'Unknown Institution'
+          };
+        });
+        
+        const qualifications = data["activities-summary"]?.qualifications?.['affiliation-group'] || [];
+        console.log(qualifications)
+        
+        const qualificationItems = qualifications.map(eduGroup => {
+        console.log(eduGroup.summaries[0])
+          const summary = eduGroup.summaries[0]['qualification-summary']; // Παίρνουμε το πρώτο summary από το group
+          const startDate = summary['start-date'];
+          const endDate = summary['end-date'];
+          
+          // Φτιάχνουμε τη συμβολοσειρά της ημερομηνίας
+          const startYear = startDate?.year?.value || '';
+          const endYear = endDate?.year?.value || '';
+          let dateString = startYear;
+          if (endYear && endYear !== startYear) {
+            dateString += ` - ${endYear}`;
+          } else if (startYear && !endYear) {
+             dateString += ' - Present';
+          }
 
-    } catch (error) {
-      console.error("Failed to process CV:", error);
-      if (!isMounted) return;
-      setCvError(error.message);
-      // Optionally set default/fallback data if fetch fails
-      setCvData({ education: [], workExperience: [] });
-    } finally {
-      if (!isMounted) return;
-      setCvLoading(false);
+          return {
+            date: dateString,
+            title: summary["role-title"] || 'Studies', // Το ORCID δεν έχει πάντα "τίτλο" για την εκπαίδευση
+            organisation: summary.organization?.name || 'Unknown Institution'
+          };
+        });
+
+        // --- 3. ΕΞΑΓΩΓΗ ΕΡΓΑΣΙΑΚΗΣ ΕΜΠΕΙΡΙΑΣ (EMPLOYMENT) ---
+        const employments = data["activities-summary"]?.employments?.['affiliation-group'] || [];
+        const workItems = employments.map(empGroup => {
+          const summary = empGroup['summaries'][0]["employment-summary"];
+          const startDate = summary['start-date'];
+          const endDate = summary['end-date'];
+
+          const startYear = startDate?.year?.value || '';
+          const endYear = endDate?.year?.value || '';
+          let dateString = startYear;
+           if (endYear && endYear !== startYear) {
+            dateString += ` - ${endYear}`;
+          } else if (startYear && !endYear) {
+             dateString += ' - Current';
+          }
+          
+          return {
+            date: dateString,
+            title: summary['role-title'] || 'No role title',
+            organisation: summary.organization?.name || 'Unknown Organization',
+            description: summary['department-name'] || '' // Χρησιμοποιούμε το όνομα του τμήματος ως περιγραφή
+          };
+        });
+
+        if (!isMounted) return;
+
+        // 4. Ενημερώνουμε το state και με τις δύο λίστες!
+        setCvData({ education: [...educationItems, ...qualificationItems], workExperience: workItems });
+
+      } catch (error) {
+        console.error("Failed to process CV from ORCID:", error);
+        if (!isMounted) return;
+        setCvError(error.message);
+        setCvData({ education: [], workExperience: [] });
+      } finally {
+        if (!isMounted) return;
+        setCvLoading(false);
+      }
     }
-  }
 
     // Run independent fetches in parallel
     Promise.all([
