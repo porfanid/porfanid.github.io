@@ -27,6 +27,8 @@ function App() {
   const [apodTitle, setApodTitle] = useState('');
   const [chessGames, setChessGames] = useState(null);
   
+  const [bio, setBio] = useState(null);
+  
   // Projects state
   const [projectsLoading, setProjectsLoading] = useState(true);
   const [projectsError, setProjectsError] = useState(null);
@@ -254,6 +256,8 @@ async function fetchShelf(shelf) {
 
         const data = await response.json();
         
+        setBio(data.person.biography.content)
+        
         // --- 2. ΕΞΑΓΩΓΗ ΕΚΠΑΙΔΕΥΣΗΣ (EDUCATION) ---
         const educations = data["activities-summary"]?.educations?.['affiliation-group'] || [];
         const educationItems = educations.map(eduGroup => {
@@ -362,7 +366,7 @@ async function fetchShelf(shelf) {
       className="app-container"
       style={{ '--bg-image': `url(${backgroundImage})` }}
     >
-      <Header username="porfanid" />
+      <Header bio={bio} />
 
       <nav className="main-tabs-nav">
         <Tabs tabs={tabs} currentPath={location.pathname} />
