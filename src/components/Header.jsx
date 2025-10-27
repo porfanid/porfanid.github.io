@@ -1,9 +1,18 @@
 import React, { useEffect, useState, memo } from 'react'
 import anime from 'animejs/lib/anime.es.js'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { getCalApi } from "@calcom/embed-react";
 
 function Header({ bio }) {
   const [profile, setProfile] = useState(null)
+  
+  useEffect(() => {
+    (async function () {
+      const cal = await getCalApi({"namespace":"meeting"});
+      cal("ui", {"hideEventTypeDetails":true,"layout":"month_view"});
+    })();
+  }, [])
+  
 
   const headerAnimRef = useScrollAnimation({
     targets: '.profile-img, .profile-name, .profile-bio, .profile-stats .stat, .social-links .social-link',
@@ -34,6 +43,12 @@ function Header({ bio }) {
      <a href="/CV_EN.pdf" download className="social-link" title="Download CV (EN)">
     <i className="fas fa-file-arrow-down"></i> {/* Χρησιμοποιούμε Font Awesome */}
   </a>
+ 
+ 
+<a className="social-link" data-cal-namespace="meeting"
+    data-cal-link="porfanid/meeting"
+    data-cal-config='{"layout":"month_view","theme":"auto"}'
+  ><i className="fas fa-calendar-alt"></i></a>
   
   </div>
   <div className="social-links">
