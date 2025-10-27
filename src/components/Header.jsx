@@ -70,18 +70,29 @@ function Header({ username }) {
             </div>
           </div>
           <div className="social-links">
-            <a className="social-link" href={profile?.html_url || `https://github.com/${username}`} target="_blank" rel="noreferrer">
+            
+            <a href="mailto:pavlos@orfanidis.net.gr" title="Email" className="social-link">
+  <i className="fa-solid fa-envelope"></i> {/* Άλλαξε το class σε className */}
+</a>
+
+  <a className="social-link" href="https://keys.openpgp.org/vks/v1/by-fingerprint/7F4A64C4D77ADF08A616BEF6666855A91B3897F4" target="_blank" title="PGP Key"><i className="fas fa-key"></i></a>
+  
+     <a href="/CV_EN.pdf" download className="social-link" title="Download CV (EN)">
+    <i className="fas fa-file-arrow-down"></i> {/* Χρησιμοποιούμε Font Awesome */}
+  </a>
+  
+  </div>
+  <div className="social-links">
+  
+  <a className="social-link" href={profile?.html_url || `https://github.com/${username}`} target="_blank" rel="noreferrer">
               <i className="fab fa-github" />
             </a>
+            
             {profile?.twitter_username && (
               <a className="social-link" href={`https://twitter.com/${profile.twitter_username}`} target="_blank" rel="noreferrer">
                 <i className="fab fa-twitter" />
               </a>
             )}
-            
-              <a href="mailto:pavlos@orfanidis.net.gr" title="Email" className="social-link">
-  <i className="fa-solid fa-envelope"></i> {/* Άλλαξε το class σε className */}
-</a>
             
             {/* LinkedIn - Αν δεν έρχεται από το API, μπορείς να το έχεις σταθερό */}
   {!profile?.blog && ( // Εμφάνισέ το μόνο αν δεν υπάρχει blog link από το API για να μην είναι διπλό
@@ -89,12 +100,28 @@ function Header({ username }) {
          <i className="fab fa-linkedin"></i> {/* Χρησιμοποιούμε Font Awesome */}
        </a>
    )}
-   
-   <a href="/CV_EN.pdf" download className="social-link" title="Download CV (EN)">
-    <i className="fas fa-file-arrow-down"></i> {/* Χρησιμοποιούμε Font Awesome */}
-  </a>
   
-  <a className="social-link" href="https://keys.openpgp.org/vks/v1/by-fingerprint/7F4A64C4D77ADF08A616BEF6666855A91B3897F4" target="_blank" title="PGP Key"><i className="fas fa-key"></i></a>
+  <a
+            className="social-link"
+            href="https://orcid.org/0000-0002-7891-1977"
+            target="_blank"
+            rel="noreferrer"
+            title="ORCID Profile"
+          >
+            <i className="fab fa-orcid"></i>
+          </a>
+          
+          <a
+            className="social-link"
+            href="https://www.goodreads.com/user/show/158565203-pavlos-orfanidis"
+            target="_blank"
+            rel="noreferrer"
+            title="Goodreads Profile" 
+          >
+            <i className="fab fa-goodreads-g"></i> 
+          </a>
+  
+
           </div>
         </div>
       </div>

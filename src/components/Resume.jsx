@@ -18,7 +18,9 @@ function Resume({ loading, error, education, workExperience }) {
 
   return (
     <div className="container resume-section" ref={resumeRef}>
-      <h2 className="section-title">Resume</h2>
+      <h2 className="section-title">
+      Resume
+      </h2>
       <div className="resume-grid">
 
         {/* Education & Certificates - Render Dynamically */}
