@@ -18,7 +18,7 @@ const SHELVES_TO_DISPLAY = [
   { id: 'comp-sci', label: 'Computer Science' },
   { id: 'med', label: 'Medicine' },
   { id: 'mystery', label: 'Mystery' },
-  { id: 'sci-fi-fantacy', label: 'Sci-FI/Fantacy' },
+  { id: 'sci-fi-fantacy', label: 'Sci-FI/Fantasy' },
 ];
 const STATUS_SHELVES = ['read', 'currently-reading', 'to-read'];
 
