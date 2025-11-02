@@ -218,7 +218,7 @@ header {
 
 .app-container {
   /* Ορίζουμε μια CSS μεταβλητή για την εικόνα */
-  --bg-image: url('https://api.nasa.gov/assets/img/general/apod.jpg'); /* Μια default εικόνα */
+  --bg-image: url('/WitchBroom_Meyers_6043.jpg'); /* Μια default εικόνα */
 
   min-height: 100vh;
   position: relative;

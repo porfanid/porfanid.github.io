@@ -1,4 +1,0 @@
-Contact: mailto:pavlos@orfanidis.net.gr
-Expires: 2028-11-01T23:59:59Z
-Encryption: openpgpkey:pavlos@orfanidis.net.gr
-Preferred-Languages: en, el

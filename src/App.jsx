@@ -7,8 +7,6 @@ import Projects from './components/Projects';
 import Books from './components/Books';
 import Chess from './components/Chess';
 import Footer from './components/Footer';
-
-const NASA_APOD_ENDPOINT = `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&thumbs=true`;
 const CHESS_ARCHIVES_URL = `https://api.chess.com/pub/player/porfanid/games/`;
 const REST_REPOS_ENDPOINT = (username) => `https://api.github.com/users/${username}/repos?per_page=100&sort=updated`;
 
@@ -23,7 +21,6 @@ const SHELVES_TO_DISPLAY = [
 const STATUS_SHELVES = ['read', 'currently-reading', 'to-read'];
 
 function App() {
-  const [backgroundImage, setBackgroundImage] = useState('');
   const [apodTitle, setApodTitle] = useState('');
   const [chessGames, setChessGames] = useState(null);
   
@@ -57,27 +54,6 @@ function App() {
   useEffect(() => {
     let isMounted = true;
 
-    fetch(NASA_APOD_ENDPOINT)
-      .then(res => res.json())
-      .then(data => {
-        if (!isMounted) return;
-        setApodTitle(data.title || 'Astronomy Picture of the Day');
-        if (data.media_type === 'image') {
-          setBackgroundImage(data.hdurl || data.url);
-        } else if (data.media_type === 'video' && data.thumbnail_url) {
-          setBackgroundImage(data.thumbnail_url);
-        } else if (data.url) {
-          setBackgroundImage(data.url);
-        } else {
-          setBackgroundImage('https://api.nasa.gov/assets/img/general/apod.jpg');
-        }
-      })
-      .catch(error => {
-        if (!isMounted) return;
-        console.error("Could not fetch NASA APOD:", error);
-        setBackgroundImage('https://api.nasa.gov/assets/img/general/apod.jpg');
-        setApodTitle('Astronomy Picture of the Day');
-      });
 
     async function fetchChessGames() {
       try {
@@ -364,7 +340,6 @@ async function fetchShelf(shelf) {
   return (
     <div
       className="app-container"
-      style={{ '--bg-image': `url(${backgroundImage})` }}
     >
       <Header bio={bio} />
 
