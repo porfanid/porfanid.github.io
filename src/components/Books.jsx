@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import anime from 'animejs/lib/anime.es.js';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { NavLink, useSearchParams } from 'react-router-dom';
+import ReadingChallenge from './ReadingChallenge.jsx';
 
 function Books({ loading, error, shelfData, statusBooks, shelvesToDisplay, statusShelves }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -98,9 +99,25 @@ function Books({ loading, error, shelfData, statusBooks, shelvesToDisplay, statu
   if (error && Object.keys(shelfData).length === 0 && !loading) return <p>Could not load any book data: {error}.</p>;
 
 
+
+
   return (
     <div ref={sectionAnimationRef}>
       <h2 className="section-title" style={{ marginTop: '2rem' }}>Books</h2>
+      
+<div 
+        style={{ 
+          display: 'flex', 
+          justifyContent: 'center', 
+          marginBottom: '2rem' 
+        }} 
+      >
+        {/* Το περιεχόμενο θα φορτωθεί από το useEffect */}
+        
+  <ReadingChallenge/>
+ 
+      </div>
+      
       <div style={{
       display: "flex",
   	justifyContent: "center"

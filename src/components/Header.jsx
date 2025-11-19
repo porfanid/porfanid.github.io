@@ -48,12 +48,13 @@ function Header({ bio }) {
 <a className="social-link" data-cal-namespace="meeting"
     data-cal-link="porfanid/meeting"
     data-cal-config='{"layout":"month_view","theme":"auto"}'
+    title="Book a Meeting"
   ><i className="fas fa-calendar-alt"></i></a>
   
   </div>
   <div className="social-links">
   
-  <a className="social-link" href={profile?.html_url || `https://github.com/porfanid`} target="_blank" rel="noreferrer">
+  <a className="social-link" href={profile?.html_url || `https://github.com/porfanid`} target="_blank" rel="noreferrer" title="GitHub">
               <i className="fab fa-github" />
             </a>
             

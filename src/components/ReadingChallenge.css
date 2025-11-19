@@ -1,0 +1,179 @@
+/* ΠΡΟΣΘΗΚΗ: Επανα-ορισμός των βασικών μεταβλητών για να είναι ορατές στο component */
+/* Αυτό είναι κρίσιμο αν το App.css δεν είναι καθολικό ή αν χρησιμοποιείς Scoped CSS */
+:root, #gr_challenge_progress_body_11627 {
+  --primary: #2d333b;
+  --secondary: #22272e;
+  --text: #adbac7;
+  --accent: #539bf5;
+  --card: #2d333b;
+}
+
+/* ========================================================================= */
+/* --- Goodreads Widget Styling Overrides --- */
+
+/* Χρησιμοποιούμε τον selector για το εξωτερικό div που δίνει το Goodreads */
+#gr_challenge_progress_body_11627 {
+  /* Inherit the application's font and set a clean background/border */
+  font-family: var(--font, 'Inter', sans-serif) !important;
+  background-color: var(--card) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(173, 186, 199, 0.1) !important;
+  border-radius: 8px !important;
+  padding: 1.5rem !important;
+  line-height: 1.4 !important;
+  overflow: hidden !important;
+}
+
+/* 1. Challenge Title */
+#gr_challenge_progress_body_11627 h3 {
+  margin: 0 0 1rem 0 !important;
+  font-weight: 600 !important;
+  text-align: left !important;
+  border-bottom: 1px solid rgba(173, 186, 199, 0.1) !important;
+  padding-bottom: 0.5rem !important;
+}
+
+#gr_challenge_progress_body_11627 h3 a {
+  font-family: inherit !important;
+  font-style: normal !important;
+  font-size: 1.3rem !important;
+  text-decoration: none !important;
+  color: var(--accent) !important;
+  transition: color 0.2s !important;
+}
+
+#gr_challenge_progress_body_11627 h3 a:hover {
+  text-decoration: underline !important;
+  color: var(--accent) !important;
+}
+
+/* 2. Image and Main Text Container */
+#gr_challenge_progress_body_11627 .challengePic {
+    float: none !important;
+    margin-right: 0 !important;
+}
+
+#gr_challenge_progress_body_11627 .challengePic a {
+  display: block !important;
+  max-width: 120px !important;
+  float: right !important;
+  margin-left: 1rem !important;
+}
+
+#gr_challenge_progress_body_11627 .challengePic img {
+  float: none !important;
+  margin-right: 0 !important;
+  border: 1px solid rgba(173, 186, 199, 0.1) !important;
+  border-radius: 4px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+/* 3. Progress Text (e.g., "Pavlos has read 39 books...") */
+#gr_challenge_progress_body_11627 > div:nth-of-type(2) {
+  margin: 0.5rem 0 1rem 0 !important;
+  color: var(--text) !important;
+}
+
+/* Style the user link */
+#gr_challenge_progress_body_11627 a[href*="user/show"] {
+  color: var(--accent) !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
+#gr_challenge_progress_body_11627 a[href*="user/show"]:hover {
+  text-decoration: underline !important;
+}
+
+/* 4. Progress Bar Styling (The Fix for width: 100px) */
+
+/* Στοχεύουμε το div που έχει το style="width: 100px..." */
+#gr_challenge_progress_body_11627 > div[style*="width: 100px"] {
+  width: 100% !important; /* <--- Η ΚΡΙΣΙΜΗ ΔΙΟΡΘΩΣΗ */
+  float: none !important;
+  margin: 1rem 0 0.5rem 0 !important;
+  height: 10px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  background-color: var(--primary) !important; /* Track color */
+  overflow: hidden !important;
+}
+
+/* Override the progress fill (The Fill - This now works because width:X% is kept) */
+/* Στοχεύουμε το εσωτερικό div που έχει το style="background-color: #D7D2C4..." */
+#gr_challenge_progress_body_11627 > div[style*="background-color: #D7D2C4"] {
+  background-color: #000000 !important; /* Fill color */
+  color: #000000;
+  height: 100% !important;
+}
+
+/* 5. Percentage Text (e.g., "39 of 50 (78%)") */
+#gr_challenge_progress_body_11627 > div[style*="font-family: arial"] {
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  color: var(--text) !important;
+  float: none !important;
+  width: auto !important;
+  text-align: left !important;
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+}
+/* Style the percentage link */
+#gr_challenge_progress_body_11627 > div[style*="font-family: arial"] a {
+    color: var(--accent) !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+}
+#gr_challenge_progress_body_11627 > div[style*="font-family: arial"] a:hover {
+    text-decoration: underline !important;
+}
+
+/* 6. View Books Link */
+#gr_challenge_progress_body_11627 > div[style*="text-align: right"] {
+  text-align: left !important;
+  margin-top: 1rem !important;
+  clear: both !important;
+}
+
+#gr_challenge_progress_body_11627 > div[style*="text-align: right"] a {
+  text-decoration: none !important;
+  font-size: 0.9rem !important;
+  color: #a2b0c0 !important;
+}
+
+#gr_challenge_progress_body_11627 > div[style*="text-align: right"] a:hover {
+  color: var(--accent) !important;
+  text-decoration: underline !important;
+}
+
+/* Clear all floats after the widget content */
+#gr_challenge_progress_body_11627::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+/* ========================================================================= */
+
+/* Στοχεύουμε το div της μπάρας ως το τρίτο div παιδί (χωρίς να μετράμε το h3) */
+#gr_challenge_progress_body_11627 > div:nth-of-type(3) {
+  /* Η ΚΡΙΣΙΜΗ ΔΙΟΡΘΩΣΗ: Αφού αφαιρέθηκε το inline style width: 100px από το JS */
+  width: 80% !important; 
+  float: none !important;
+  margin: 1rem 0 0.5rem 0 !important;
+  height: 10px !important;
+  border: none !important;
+  border-radius: 5px !important;
+  background-color: var(--secondary) !important; /* Track color */
+  color: #000000 !important;
+  overflow: hidden !important;
+}
+
+/* Override the progress fill */
+/* Στοχεύουμε το εσωτερικό div που είναι το 1ο παιδί του div της μπάρας */
+#gr_challenge_progress_body_11627 > div:nth-of-type(4) > div:first-child {
+  background-color: #ff0000 !important; /* Fill color */
+  color: #ff0000 !important;
+  height: 100% !important;
+}

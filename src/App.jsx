@@ -166,7 +166,7 @@ function App() {
 
 async function fetchShelf(shelf) {
   try {
-    const proxyUrl = 'https://corsproxy.io/?';
+    const proxyUrl = 'https://corsproxy.io/?url=';
     const rssUrl = `https://www.goodreads.com/review/list_rss/158565203?shelf=${encodeURIComponent(shelf)}`;
     const res = await fetch(`${proxyUrl}${encodeURIComponent(rssUrl)}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
