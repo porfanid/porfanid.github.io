@@ -1,78 +1,55 @@
-import React from 'react';
-import anime from 'animejs/lib/anime.es.js';
-import ProjectCard from './ProjectCard';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import React from "react";
+import { profile, githubUsername } from "../data/profile.js";
+import { useGithubData } from "../hooks/useGithubData.js";
 
-function Projects({ loading, error, pinnedRepos, otherRepos }) {
-
-  // Scroll-activated animations
-  const sectionAnimationRef = useScrollAnimation({
-    targets: '.section-title',
-    translateY: [24, 0],
-    opacity: [0, 1],
-    duration: 900,
-    easing: 'easeOutExpo',
-  });
-
-  const pinnedGridAnimationRef = useScrollAnimation({
-    targets: '#pinned-projects-grid .project-card',
-    translateY: [40, 0],
-    opacity: [0, 1],
-    delay: anime.stagger(90),
-    duration: 800,
-    easing: 'easeOutExpo',
-  });
-
-  const otherGridAnimationRef = useScrollAnimation({
-    targets: '#other-projects-grid .project-card',
-    translateY: [40, 0],
-    opacity: [0, 1],
-    delay: anime.stagger(70),
-    duration: 750,
-    easing: 'easeOutExpo',
-  });
-  
-  // Helper function για να περάσουμε τα σωστά δεδομένα στην κάρτα
-  const normalizeRepoData = (repo) => ({
-    name: repo.name,
-    description: repo.description,
-    url: repo.html_url || repo.url,
-    homepageUrl: repo.homepage || repo.homepageUrl,
-    stars: repo.stargazers_count ?? repo.stargazerCount,
-    forks: repo.forks_count ?? repo.forkCount,
-    language: repo.language ?? repo.primaryLanguage?.name,
-    languageColor: repo.primaryLanguage?.color, // Δεν είναι διαθέσιμο από REST — αν λείπει, το αφήνουμε undefined
-  });
+export default function Projects() {
+  const gh = useGithubData(githubUsername);
+  const projects = gh.projects.length ? gh.projects : profile.fallbackProjects;
 
   return (
-    <div id="projects-container" ref={sectionAnimationRef}>
-      {loading && (
-        <div className="loader"><div className="spinner" /></div>
-      )}
-      
-      {error && !loading && (
-        <p style={{ textAlign: 'center' }}>Could not load repositories: {error}</p>
-      )}
-
-      {!loading && !error && (
-        <>
-          {/* Ενότητα για τα Favorite Projects (fallback των pinned) */}
-          <h2 className="section-title" style={{ marginTop: '2rem' }}>Favorite Projects</h2>
-          <div id="pinned-projects-grid" className="projects-grid" ref={pinnedGridAnimationRef}>
-            {pinnedRepos.map(repo => <ProjectCard key={repo.html_url || repo.url} repo={normalizeRepoData(repo)} />)}
+    <section className="section" id="projects">
+      <div className="container">
+        <div className="projects-header">
+          <div>
+            <h2 style={{ marginBottom: 4 }}>My Latest Work</h2>
+            <p style={{ margin: 0 }}>
+              Live from GitHub &mdash; my non-fork repos, sorted by stars.
+              {gh.stale && " (cached copy)"}
+            </p>
           </div>
+          <a href={profile.links.github} target="_blank" rel="noreferrer" className="project-link">
+            More on GitHub <i className="mdi mdi-arrow-right" />
+          </a>
+        </div>
 
-          <hr style={{ margin: '3rem 0', borderColor: 'rgba(173, 186, 199, 0.2)' }} />
+        <div className="projects-grid">
+          {gh.loading &&
+            [1, 2, 3].map((i) => (
+              <div className="project-card" key={i} style={{ opacity: 0.4 }}>
+                <span className="project-tag">Loading</span>
+                <h5>&nbsp;</h5>
+                <p style={{ fontSize: 14, margin: 0 }}>&nbsp;</p>
+              </div>
+            ))}
 
-          {/* Ενότητα για όλα τα υπόλοιπα Projects */}
-          <h2 className="section-title">All Projects</h2>
-          <div id="other-projects-grid" className="projects-grid" ref={otherGridAnimationRef}>
-            {otherRepos.map(repo => <ProjectCard key={repo.html_url || repo.url} repo={normalizeRepoData(repo)} />)}
-          </div>
-        </>
-      )}
-    </div>
+          {!gh.loading &&
+            projects.map((p) => (
+              <div className="project-card" key={p.name}>
+                <span className="project-tag">{p.tag}</span>
+                <h5>{p.name}</h5>
+                <p style={{ fontSize: 14, margin: 0 }}>{p.description}</p>
+                <div className="project-footer">
+                  <a href={p.url} target="_blank" rel="noreferrer" className="project-link">
+                    View repo <i className="mdi mdi-open-in-new" />
+                  </a>
+                  <span className="project-stars">
+                    <i className="mdi mdi-star-outline" /> {p.stars}
+                  </span>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    </section>
   );
 }
-
-export default Projects;
