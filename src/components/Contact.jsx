@@ -10,7 +10,7 @@ export default function Contact() {
     e.preventDefault();
     const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`);
     const subject = encodeURIComponent(form.subject || `Message from ${form.name}`);
-    window.location.href = `mailto:hello@orfanidis.net.gr?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:pavlos@orfanidis.net.gr?subject=${subject}&body=${body}`;
   };
 
   return (
